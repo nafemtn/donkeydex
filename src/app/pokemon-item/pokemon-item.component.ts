@@ -8,6 +8,7 @@ import { Component, OnInit } from '@angular/core';
 export class PokemonItemComponent implements OnInit {
 
   constructor() { }
+  nbCaught = 0;
 
   ngOnInit(): void {
   }

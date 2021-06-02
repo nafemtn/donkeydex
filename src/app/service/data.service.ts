@@ -15,8 +15,8 @@ export class DataService {
 
 //Get Pokémons
 
-getPokemon(limit: number, offset: number) {
-  return this.http.get(`https://pokeapi.co/api/v2/pokemon?limit=${limit}&offset=${offset}`);
+getPokemon() {
+  return this.http.get(`https://pokeapi.co/api/v2/pokemon?limit=151`);
 }
 
 //Get more pokemon Data
