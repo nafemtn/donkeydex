@@ -9,6 +9,7 @@ import { DataService } from '../service/data.service';
 export class PokemonListComponent implements OnInit {
 pokemons: any[] = [];
 
+
   constructor(
     private dataService: DataService
   ) { }
@@ -32,4 +33,10 @@ pokemons: any[] = [];
       });
 
   };
+
+  searchPokemon(form) {
+    console.log(form.value)
+
+  }
+
 };

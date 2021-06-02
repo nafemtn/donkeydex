@@ -1,22 +1,29 @@
 
 <h2> Pokedex List</h2>
 
-<!-- <form #f="ngForm" (submit)="searchPokemon()">
+<form
+  #search="ngForm" (submit)="searchPokemon(search)">
+  <label for="name"> Nom de Pokemon</label>
+  <input type="text" name="name" id="name" [(ngModel)]="searchName" name="name"/>
 
-</form> -->
+  <label for="type"> Type of Pokemon</label>
+  <select name="type" id="type" ngModel name="type">
+    <option> ---- </option>
+  </select>
+
+  <button type="submit" > Search </button>
+</form>
 
 
 <ul class="list-group">
   <!-- <app-pokemon-item></app-pokemon-item> -->
 </ul>
 
-<!-- <div class="pokemon-grid">
 
-   -->
 
 <div class="pokemon-grid">
   <div class="box"
-  *ngFor="let pokemon of pokemons">
+  *ngFor="let pokemon of pokemons | filter:(prod_name: searchName)">
 
     <img [src]="pokemon.sprites.front_default" alt="Pokemon">
 
