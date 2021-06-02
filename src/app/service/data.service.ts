@@ -10,7 +10,12 @@ export class DataService {
 
   constructor(
     private http:HttpClient
-  ) { }
+  ) {
+
+
+
+
+}
 
 
 //Get Pokémons
@@ -23,8 +28,8 @@ getPokemon() {
 
 getMoreData(name: string) {
 
-    return this.http.get(`https://pokeapi.co/api/v2/pokemon/${name}`);
+return this.http.get(`https://pokeapi.co/api/v2/pokemon/${name}`);
 
-}
+  }
 
 }

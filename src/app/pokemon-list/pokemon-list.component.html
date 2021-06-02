@@ -1,13 +1,31 @@
-<p>pokemon-list works!</p>
+
+<h2> Pokedex List</h2>
+
+<!-- <form #f="ngForm" (submit)="searchPokemon()">
+
+</form> -->
+
+
+<ul class="list-group">
+  <!-- <app-pokemon-item></app-pokemon-item> -->
+</ul>
+
+<!-- <div class="pokemon-grid">
+
+   -->
 
 <div class="pokemon-grid">
-
   <div class="box"
-  *ngFor="let pokemon of pokemons | paginate: { itemsPerPage: 10, currentPage: page, totalItems: totalPokemons }">
+  *ngFor="let pokemon of pokemons">
 
     <img [src]="pokemon.sprites.front_default" alt="Pokemon">
 
-    <h3>{{ pokemon.name}}</h3>
+
+    <h3> {{ pokemon.name}} </h3>
+
+    <p>
+      <b>N°:</b> {{ pokemon.id }}
+    </p>
 
     <p>
       <b>Type:</b> {{ pokemon.types[0].type.name }}
@@ -26,9 +44,7 @@
     </p>
 
 
-
   </div>
 
 </div>
 
-<app-pokemon-item></app-pokemon-item>
