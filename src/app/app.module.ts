@@ -10,13 +10,17 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { PokemonItemComponent } from './pokemon-item/pokemon-item.component';
 import { PokemonListComponent } from './pokemon-list/pokemon-list.component';
 import { HeaderComponent } from './header/header.component';
+import { SearchFilterPipe } from './search-filter.pipe';
+import { PokemonCaughtComponent } from './pokemon-caught/pokemon-caught.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     PokemonItemComponent,
     PokemonListComponent,
-    HeaderComponent
+    HeaderComponent,
+    SearchFilterPipe,
+    PokemonCaughtComponent
   ],
   imports: [
     BrowserModule,

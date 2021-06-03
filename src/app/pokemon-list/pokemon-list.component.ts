@@ -7,7 +7,16 @@ import { DataService } from '../service/data.service';
   styleUrls: ['./pokemon-list.component.scss']
 })
 export class PokemonListComponent implements OnInit {
+
+// addCaughtPokemon = false;
+pokemonAddListCaught = "Add a captured pokemon"
+pokemonCaughtAdded = false;
+
+public searchFilter: any = '';
+
 pokemons: any[] = [];
+pokemonName = '';
+
 
 
   constructor(
@@ -17,6 +26,9 @@ pokemons: any[] = [];
 
 
   ngOnInit(): void {
+
+
+
     this.dataService.getPokemon()
       .subscribe((response: any) => {
         console.log(response);
@@ -38,5 +50,20 @@ pokemons: any[] = [];
     console.log(form.value)
 
   }
+
+  addPokemonCaught() {
+    this.pokemonAddListCaught = "Well Done !!";
+    this.pokemonCaughtAdded = true;
+  }
+
+  pokemonRemoveListCaught() {
+    this.pokemonAddListCaught ="Add a captured pokemon";
+  }
+
+  // onUpdatePokemonName(event: Event) {
+  //   console.log(event);
+  //   const inputElement = event.target as HTMLInputElement;
+  //     this.pokemonName = inputElement.value;
+  // }
 
 };

@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { DataService } from '../service/data.service';
 
 @Component({
   selector: 'app-pokemon-item',
@@ -7,10 +8,26 @@ import { Component, OnInit } from '@angular/core';
 })
 export class PokemonItemComponent implements OnInit {
 
-  constructor() { }
-  nbCaught = 0;
+  constructor(private dataService: DataService) {}
+
+  pokemons: any[] = [];
 
   ngOnInit(): void {
-  }
+    this.dataService.getPokemon()
+      .subscribe((response: any) => {
+        console.log(response);
 
-}
+        response.results.forEach((result: { name: string; }) => {
+          this.dataService.getMoreData(result.name)
+            .subscribe((uniqueResponse: any) => {
+              this.pokemons.push(uniqueResponse);
+                  console.log(this.pokemons);
+
+
+           });
+       });
+      });
+
+  };
+
+};

@@ -1,29 +1,33 @@
 
 <h2> Pokedex List</h2>
 
-<form
-  #search="ngForm" (submit)="searchPokemon(search)">
+<form>
+ <!-- #search="ngForm" (submit)="searchPokemon(search)"> -->
   <label for="name"> Nom de Pokemon</label>
-  <input type="text" name="name" id="name" [(ngModel)]="searchName" name="name"/>
+  <input type="text" name="name" id="name"  />
 
   <label for="type"> Type of Pokemon</label>
   <select name="type" id="type" ngModel name="type">
-    <option> ---- </option>
+    <option>  </option>
   </select>
 
   <button type="submit" > Search </button>
 </form>
 
-
 <ul class="list-group">
   <!-- <app-pokemon-item></app-pokemon-item> -->
 </ul>
 
-
+<input
+    type="text"
+    class="form-control"
+    placeholder="Enter a pokemon name"
+    [(ngModel)]="pokemonName "
+  />
 
 <div class="pokemon-grid">
   <div class="box"
-  *ngFor="let pokemon of pokemons | filter:(prod_name: searchName)">
+  *ngFor="let pokemon of pokemons ">
 
     <img [src]="pokemon.sprites.front_default" alt="Pokemon">
 
@@ -38,20 +42,29 @@
       <b>Type:</b> {{ pokemon.types[0].type.name }}
     </p>
 
-    <p>
-      <b>Height:</b> {{ pokemon.height }}
-    </p>
 
-    <p>
-      <b>Health:</b> {{ pokemon.stats[0].base_stat }}
-    </p>
+  <button
+    type="button"
+    (click)="addPokemonCaught()"
+    >
+    Add to Pokemon Caught's List
+  </button>
 
-    <p>
-      <b>Attack Power:</b> {{ pokemon.stats[1].base_stat }}
-    </p>
+  <button
+    type="button"
+    (click)="pokemonRemoveListCaught()"
+    >
+    Remove to Pokemon Caught's List
+  </button>
+
+
+  <span class="ml-3"> {{pokemonAddListCaught}} </span>
+  <!-- <span class="ml-3"> {{pokemonRemoveListCaught}} </span> -->
+
 
 
   </div>
+
 
 </div>
 
