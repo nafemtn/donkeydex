@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { HttpClientModule } from '@angular/common/http';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 
 import { AppRoutingModule } from './app-routing.module';
@@ -12,6 +12,22 @@ import { PokemonListComponent } from './pokemon-list/pokemon-list.component';
 import { HeaderComponent } from './header/header.component';
 import { SearchFilterPipe } from './search-filter.pipe';
 import { PokemonCaughtComponent } from './pokemon-caught/pokemon-caught.component';
+import { AuthSignupComponent } from './auth/auth-signup/auth-signup.component';
+import { AuthSiginComponent } from './auth/auth-sigin/auth-sigin.component';
+import { AuthService } from './service-auth/auth.service';
+import { DataService } from './service/data.service';
+import { RouterModule, Routes } from '@angular/router';
+import { AuthGuardService } from './service-auth/auth-guard.service';
+
+const appRoutes: Routes = [
+  {path: 'auth-signup', component: AuthSignupComponent },
+  {path: 'auth-sigin', component: AuthSiginComponent },
+  {path: 'pokemon-list', canActivate: [AuthGuardService], component: PokemonListComponent },
+  {path: 'pokemon-item', canActivate: [AuthGuardService], component: PokemonItemComponent  },
+  {path: 'pokemon-caught', canActivate: [AuthGuardService], component: PokemonCaughtComponent },
+  {path: '', redirectTo: 'pokemon-list', pathMatch: 'full'},
+  {path: '**', redirectTo: 'pokemon-list'},
+];
 
 @NgModule({
   declarations: [
@@ -20,16 +36,23 @@ import { PokemonCaughtComponent } from './pokemon-caught/pokemon-caught.componen
     PokemonListComponent,
     HeaderComponent,
     SearchFilterPipe,
-    PokemonCaughtComponent
+    PokemonCaughtComponent,
+    AuthSignupComponent,
+    AuthSiginComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     NgbModule,
     HttpClientModule,
-    FormsModule
+    FormsModule,
+    ReactiveFormsModule,
+    RouterModule.forRoot(appRoutes),
   ],
-  providers: [],
+  providers: [
+    AuthService,
+    DataService,
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

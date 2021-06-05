@@ -13,20 +13,21 @@ export class PokemonItemComponent implements OnInit {
   pokemons: any[] = [];
 
   ngOnInit(): void {
-    this.dataService.getPokemon()
-      .subscribe((response: any) => {
-        console.log(response);
+    this.pokemons = this.dataService.getPokemonsSync();
+    // this.dataService.getPokemon()
+    //   .subscribe((response: any) => {
+    //     console.log(response);
 
-        response.results.forEach((result: { name: string; }) => {
-          this.dataService.getMoreData(result.name)
-            .subscribe((uniqueResponse: any) => {
-              this.pokemons.push(uniqueResponse);
-                  console.log(this.pokemons);
+    //     response.results.forEach((result: { name: string; }) => {
+    //       this.dataService.getMoreData(result.name)
+    //         .subscribe((uniqueResponse: any) => {
+    //           this.pokemons.push(uniqueResponse);
+    //               console.log(this.pokemons);
 
 
-           });
-       });
-      });
+    //        });
+    //    });
+    //   });
 
   };
 

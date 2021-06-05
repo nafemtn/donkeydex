@@ -1,29 +1,25 @@
 
-<h2> Pokedex List</h2>
+<h2> Pokedex List </h2>
 
 <form>
- <!-- #search="ngForm" (submit)="searchPokemon(search)"> -->
-  <label for="name"> Nom de Pokemon</label>
-  <input type="text" name="name" id="name"  />
-
-  <label for="type"> Type of Pokemon</label>
-  <select name="type" id="type" ngModel name="type">
-    <option>  </option>
-  </select>
-
-  <button type="submit" > Search </button>
-</form>
-
-<ul class="list-group">
-  <!-- <app-pokemon-item></app-pokemon-item> -->
-</ul>
 
 <input
     type="text"
     class="form-control"
     placeholder="Enter a pokemon name"
-    [(ngModel)]="pokemonName "
+    [(ngModel)]="pokemonName"
+     (ngModelChange) ="filterPokemons($event)"
+     name="search"
   />
+
+  <label for="type"> Type of Pokemon</label>
+  <select name="type" id="type"  [(ngModel)]='selectedObject' name="type">
+    <option *ngFor=" let type of pokemonsType" [ngValue]='type' > {{type.type}} </option>
+  </select>
+
+  <button type="submit" (click)="filterType()"> Search </button>
+
+</form>
 
 <div class="pokemon-grid">
   <div class="box"
@@ -59,7 +55,6 @@
 
 
   <span class="ml-3"> {{pokemonAddListCaught}} </span>
-  <!-- <span class="ml-3"> {{pokemonRemoveListCaught}} </span> -->
 
 
 

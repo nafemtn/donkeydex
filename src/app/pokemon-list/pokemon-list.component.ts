@@ -1,3 +1,4 @@
+import { ClassGetter } from '@angular/compiler/src/output/output_ast';
 import { Component, OnInit } from '@angular/core';
 import { DataService } from '../service/data.service';
 
@@ -16,33 +17,40 @@ public searchFilter: any = '';
 
 pokemons: any[] = [];
 pokemonName = '';
-
-
+type = '';
+pokemonsType = [{type:"All"}, {type:"grass"},  {type:"fire"},  {type:"water"},  {type:"electric"}]
+selectedObject: any = this.pokemonsType[0];
 
   constructor(
     private dataService: DataService
   ) { }
 
-
-
   ngOnInit(): void {
 
-
+    this.pokemons = []
 
     this.dataService.getPokemon()
-      .subscribe((response: any) => {
-        console.log(response);
+      .subscribe(
+        (response: any) => {
+       // console.log(response);
 
         response.results.forEach((result: { name: string; }) => {
           this.dataService.getMoreData(result.name)
             .subscribe((uniqueResponse: any) => {
-              this.pokemons.push(uniqueResponse);
-                  console.log(this.pokemons);
+
+              // chaquen fois que je récupère un pokemon je l'add a mon dataservice
+              this.dataService.addPokemon(uniqueResponse)
+              // this.pokemons.push(uniqueResponse);
+
+
+             /// console.log(this.pokemons);
 
 
            });
        });
       });
+
+      this.pokemons=this.dataService.getPokemonsSync()
 
   };
 
@@ -57,9 +65,27 @@ pokemonName = '';
   }
 
   pokemonRemoveListCaught() {
-    this.pokemonAddListCaught ="Add a captured pokemon";
+    this.pokemonAddListCaught =" Add to the list of captured pokemon";
   }
 
+  filterPokemons(newvalue){
+
+    if (newvalue === '' || !newvalue) {
+      this.pokemons = this.dataService.getPokemonsSync()
+    } else {
+      console.log(newvalue);
+      this.pokemons = this.dataService.getPokemonsByName(newvalue)
+    }
+  }
+
+    filterType(){
+      if (this.selectedObject.type === "All") {
+        this.pokemons = this.dataService.getPokemonsSync()
+      } else {
+        this.pokemons = this.dataService.getPokemonsByType(this.selectedObject.type)
+      }
+
+    }
   // onUpdatePokemonName(event: Event) {
   //   console.log(event);
   //   const inputElement = event.target as HTMLInputElement;
