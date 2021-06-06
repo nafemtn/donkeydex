@@ -2,19 +2,79 @@
 
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-
+import { Subject } from 'rxjs';
+import firebase from 'firebase';
+import { resolve } from '@angular/compiler-cli/src/ngtsc/file_system';
 @Injectable({
   providedIn: 'root'
 })
 export class DataService {
 
-  pokemons : any [] =[];
+//pattern
+  pokemons : any[] =[];
+//emettre l'array
+  pokemonsSubjects = new Subject<any[]>();
 
   constructor(
     private http:HttpClient
   ) {}
 
-//Get Pokémons
+  emitPokemons() {
+    this.pokemonsSubjects.next(this.pokemons);
+  }
+
+//save pkemon dans la database
+
+  savePokemons() {
+    firebase.database().ref('/pokemons').set(this.pokemons);
+  }
+
+//récuperer liste des pokemons de firebase
+
+  getPokemonFromFirebase() {
+    firebase.database().ref('/pokemons')
+  //Reagir modification database
+    .on('value', (data) => {
+      this.pokemons = data.val() ? data.val() : []; //si pas de valeur.
+      this.emitPokemons();
+    });
+}
+
+  getSinglePokemon(id: number) {
+  return new Promise
+  (
+    (resolve, reject) =>
+    {
+      firebase.database().ref('/pokemons/' + id).once('value').then
+      (
+        (data) =>
+        {
+          resolve(data.val());
+        }, (error) =>
+        {
+          reject(error);
+        }
+      );
+    }
+  );
+}
+
+//delete poke caughts ds list
+
+removePokemon(pokemon: any) {
+  const pokemonIndexToRemove = this.pokemons.findIndex(
+    (pokemonDel) => {
+      if(pokemonDel === pokemon) {
+        return true;
+      }
+    }
+  );
+  this.pokemons.splice(pokemonIndexToRemove, 1);
+  this.savePokemons();
+  this.emitPokemons();
+}
+
+//Get Pokemons from API
 
 getPokemon() {
   return this.http.get(`https://pokeapi.co/api/v2/pokemon?limit=151`);

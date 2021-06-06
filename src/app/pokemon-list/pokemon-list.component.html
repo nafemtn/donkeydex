@@ -13,7 +13,7 @@
   />
 
   <label for="type"> Type of Pokemon</label>
-  <select name="type" id="type"  [(ngModel)]='selectedObject' name="type">
+  <select name="type" id="type"  [(ngModel)]='selectedType' name="type">
     <option *ngFor=" let type of pokemonsType" [ngValue]='type' > {{type.type}} </option>
   </select>
 
@@ -23,7 +23,7 @@
 
 <div class="pokemon-grid">
   <div class="box"
-  *ngFor="let pokemon of pokemons ">
+  *ngFor="let pokemon of pokemons; let i = index">
 
     <img [src]="pokemon.sprites.front_default" alt="Pokemon">
 
@@ -38,6 +38,12 @@
       <b>Type:</b> {{ pokemon.types[0].type.name }}
     </p>
 
+  <button
+  type="button"
+  (click)="onViewPokemon(i)"
+  >
+  View Pokemon
+  </button>
 
   <button
     type="button"

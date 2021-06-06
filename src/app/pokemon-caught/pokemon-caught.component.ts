@@ -17,13 +17,13 @@ export class PokemonCaughtComponent implements OnInit {
   ngOnInit(): void {
     this.dataService.getPokemon()
     .subscribe((response: any) => {
-      console.log(response);
+      //console.log(response);
 
       response.results.forEach((result: { name: string; }) => {
         this.dataService.getMoreData(result.name)
           .subscribe((uniqueResponse: any) => {
             this.pokemons.push(uniqueResponse);
-                console.log(this.pokemons);
+                //console.log(this.pokemons);
 
 
          });
@@ -31,5 +31,9 @@ export class PokemonCaughtComponent implements OnInit {
     });
 
 };
+
+  onDeletePokemonCaught() {
+    this.dataService.removePokemon(this.pokemons)
+  }
 
 };

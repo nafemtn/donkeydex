@@ -1,5 +1,7 @@
 import { ClassGetter } from '@angular/compiler/src/output/output_ast';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { NavigationEnd, Router } from '@angular/router';
+import { Subscription } from 'rxjs';
 import { DataService } from '../service/data.service';
 
 @Component({
@@ -7,7 +9,9 @@ import { DataService } from '../service/data.service';
   templateUrl: './pokemon-list.component.html',
   styleUrls: ['./pokemon-list.component.scss']
 })
-export class PokemonListComponent implements OnInit {
+export class PokemonListComponent implements OnInit, OnDestroy {
+
+pokemonsSubscription: Subscription | undefined;
 
 // addCaughtPokemon = false;
 pokemonAddListCaught = "Add a captured pokemon"
@@ -19,10 +23,11 @@ pokemons: any[] = [];
 pokemonName = '';
 type = '';
 pokemonsType = [{type:"All"}, {type:"grass"},  {type:"fire"},  {type:"water"},  {type:"electric"}]
-selectedObject: any = this.pokemonsType[0];
+selectedType: any = this.pokemonsType[0];
 
   constructor(
-    private dataService: DataService
+    private dataService: DataService,
+    private router: Router
   ) { }
 
   ngOnInit(): void {
@@ -32,18 +37,13 @@ selectedObject: any = this.pokemonsType[0];
     this.dataService.getPokemon()
       .subscribe(
         (response: any) => {
-       // console.log(response);
 
         response.results.forEach((result: { name: string; }) => {
           this.dataService.getMoreData(result.name)
             .subscribe((uniqueResponse: any) => {
 
-              // chaquen fois que je récupère un pokemon je l'add a mon dataservice
+              // des que je récupère un pokemon je l'add a mon dataservice
               this.dataService.addPokemon(uniqueResponse)
-              // this.pokemons.push(uniqueResponse);
-
-
-             /// console.log(this.pokemons);
 
 
            });
@@ -51,6 +51,17 @@ selectedObject: any = this.pokemonsType[0];
       });
 
       this.pokemons=this.dataService.getPokemonsSync()
+//
+      this.pokemonsSubscription = this.dataService.pokemonsSubjects.subscribe
+      (
+        (pokemons: any[]) =>
+        {
+          this.pokemons = pokemons;
+        }
+      );
+      this.dataService.emitPokemons();
+
+
 
   };
 
@@ -78,18 +89,27 @@ selectedObject: any = this.pokemonsType[0];
     }
   }
 
-    filterType(){
-      if (this.selectedObject.type === "All") {
-        this.pokemons = this.dataService.getPokemonsSync()
-      } else {
-        this.pokemons = this.dataService.getPokemonsByType(this.selectedObject.type)
-      }
-
+  filterType(){
+    if (this.selectedType.type === "All") {
+      this.pokemons = this.dataService.getPokemonsSync()
+    } else {
+      this.pokemons = this.dataService.getPokemonsByType(this.selectedType.type)
     }
-  // onUpdatePokemonName(event: Event) {
-  //   console.log(event);
-  //   const inputElement = event.target as HTMLInputElement;
-  //     this.pokemonName = inputElement.value;
-  // }
 
+  }
+
+
+      // add caught poke list
+
+  PokemonCapturedAddList() {
+    this.router.navigate(['/pokemon-list', 'pokemon-caught']);
+  }
+
+  onViewPokemon(id: number) {
+    this.router.navigate (['/pokemons', 'view', id]);
+  }
+
+  ngOnDestroy() {
+    this.pokemonsSubscription?.unsubscribe();
+  }
 };
