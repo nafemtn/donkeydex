@@ -1,11 +1,16 @@
 
-
 <div class="pokemon-grid">
 
-  <div class="box"
-  *ngFor="let pokemon of pokemons ">
+  {{ name }} ({{ nbCaught }} caught)
+  <button type="button" class="btn btn-danger" (click)="onRemoveClick()">Remove</button>
+
+  <div
+  *ngFor="let pokemon of pokemons; let i = index">
+
+    <a [routerLink]="['/pokemon-list']"> Retour </a>
 
     <img [src]="pokemon.sprites.front_default" alt="Pokemon">
+    <img [src]="pokemon.sprites.back_default" alt="Pokemon">
 
 
     <h3> {{ pokemon.name}} </h3>
@@ -15,7 +20,7 @@
     </p>
 
     <p>
-      <b>Type:</b> {{ pokemon.types[0].type.name }}
+      <b>Type:</b> {{ pokemon.types[0].type.name }}  {{ pokemon.types[1]?.type.name }}
     </p>
 
     <p>
@@ -29,6 +34,10 @@
     <p>
       <b>Attack Power:</b> {{ pokemon.stats[1].base_stat }}
     </p>
+
+<!-- <button (click)="onBack()"> Retour </button> -->
+
+
 
   </div>
 

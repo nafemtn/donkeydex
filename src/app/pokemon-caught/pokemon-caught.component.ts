@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { DataService } from '../service/data.service';
+import  firebase from "firebase/app";
 
 @Component({
   selector: 'app-pokemon-caught',
@@ -32,8 +33,10 @@ export class PokemonCaughtComponent implements OnInit {
 
 };
 
-  onDeletePokemonCaught() {
-    this.dataService.removePokemon(this.pokemons)
-  }
+  // onDeletePokemonCaught() {
+  //   this.dataService.removePokemon(this.pokemons)
+  // }
+
+  //min 47
 
 };

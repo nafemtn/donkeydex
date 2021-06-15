@@ -1,6 +1,32 @@
 
 <h2> Pokedex List </h2>
 
+<div class="p-3">
+  <div class="input-group mb-3">
+    <input
+      type="text"
+      class="form-control"
+      placeholder="Enter a pokemon name"
+      [(ngModel)]="pokemonName"
+      #nameInput
+    />
+    <button
+      class="btn btn-primary"
+      (click)="onAddPokemon(nameInput)"
+      type="button"
+    >
+      Add Pokemon
+    </button>
+  </div>
+
+
+  <!-- <div *ngIf="pokemonAdded">
+    Pokemon was created ! Pokemon name is: {{ pokemonName }}
+  </div> -->
+
+</div>
+
+
 <form>
 
 <input
@@ -20,52 +46,74 @@
   <button type="submit" (click)="filterType()"> Search </button>
 
 </form>
+<ul class="list-group">
 
-<div class="pokemon-grid">
-  <div class="box"
-  *ngFor="let pokemon of pokemons; let i = index">
-
-    <img [src]="pokemon.sprites.front_default" alt="Pokemon">
-
-
-    <h3> {{ pokemon.name}} </h3>
-
-    <p>
-      <b>N°:</b> {{ pokemon.id }}
-    </p>
-
-    <p>
-      <b>Type:</b> {{ pokemon.types[0].type.name }}
-    </p>
-
-  <button
-  type="button"
-  (click)="onViewPokemon(i)"
+  <app-pokemon-item
+  appHighlight="blue"
+  defaultColor="gray"
+  *ngFor="let pokemon of pokemons; let i = index"
+  [pokemonName]="pokemon"
   >
-  View Pokemon
-  </button>
-
-  <button
-    type="button"
-    (click)="addPokemonCaught()"
-    >
-    Add to Pokemon Caught's List
-  </button>
-
-  <button
-    type="button"
-    (click)="pokemonRemoveListCaught()"
-    >
-    Remove to Pokemon Caught's List
-  </button>
 
 
+<a [routerLink]="['/pokemon-item', pokemon.id]">
+  Voir détail de {{ pokemon.name }}  </a>
+
+  <img [src]="pokemon.sprites.front_default" alt="Pokemon">
+
+
+  <h3> {{ pokemon.name}} </h3>
+
+  <p>
+    <b>N°:</b> {{ pokemon.id }}
+  </p>
+
+  <p>
+    <b>Type:</b> {{ pokemon.types[0].type.name }}  {{ pokemon.types[1]?.type.name }}
+  </p>
+
+</app-pokemon-item>
+</ul>
+
+
+
+
+<!-- <div class="pokemon-grid" >
+
+  <button (click)="goToPokemonDetails(id)">Go </button>
+</div> -->
+
+
+
+<!--
+
+  <div class="box"
+  *ngFor="let pokemon of pokemons; let i = index"
+  [routerLink]="['/pokemon-item', pokemon.id]"> -->
+
+ <!-- <div class="box"
+ *ngFor="let pokemon of pokemons" [id]="pokemon.id">
+
+  <!-- <div style="margin-top: 1rem;"> -->
+
+
+<!--
+  </div> -->
+
+ <!-- <button
+  (click)="onViewPokemon(i)"> View Pokemon
+ </button> -->
+
+
+
+
+ <!-- </div> -->
+<!--
   <span class="ml-3"> {{pokemonAddListCaught}} </span>
+ -->
 
 
 
-  </div>
 
 
-</div>
 

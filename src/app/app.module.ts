@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-
+import  firebase from "firebase/app";
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -18,6 +18,7 @@ import { AuthService } from './service-auth/auth.service';
 import { DataService } from './service/data.service';
 import { RouterModule, Routes } from '@angular/router';
 import { AuthGuardService } from './service-auth/auth-guard.service';
+import { HighlightDirective } from './highlight.directive';
 
 const appRoutes: Routes = [
   {path: 'auth-signup', component: AuthSignupComponent },
@@ -25,6 +26,7 @@ const appRoutes: Routes = [
   {path: 'pokemon-list', canActivate: [AuthGuardService], component: PokemonListComponent },
   {path: 'pokemon-item', canActivate: [AuthGuardService], component: PokemonItemComponent  },
   {path: 'pokemon-caught', canActivate: [AuthGuardService], component: PokemonCaughtComponent },
+  {path: 'pokemon-list/:id', canActivate: [AuthGuardService], component: PokemonItemComponent },
   {path: '', redirectTo: 'pokemon-list', pathMatch: 'full'},
   {path: '**', redirectTo: 'pokemon-list'},
 ];
@@ -38,7 +40,8 @@ const appRoutes: Routes = [
     SearchFilterPipe,
     PokemonCaughtComponent,
     AuthSignupComponent,
-    AuthSiginComponent
+    AuthSiginComponent,
+    HighlightDirective
   ],
   imports: [
     BrowserModule,

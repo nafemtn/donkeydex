@@ -61,18 +61,18 @@ export class DataService {
 
 //delete poke caughts ds list
 
-removePokemon(pokemon: any) {
-  const pokemonIndexToRemove = this.pokemons.findIndex(
-    (pokemonDel) => {
-      if(pokemonDel === pokemon) {
-        return true;
-      }
-    }
-  );
-  this.pokemons.splice(pokemonIndexToRemove, 1);
-  this.savePokemons();
-  this.emitPokemons();
-}
+// removePokemon(pokemon: any) {
+//   const pokemonIndexToRemove = this.pokemons.findIndex(
+//     (pokemonl) => {
+//       if(pokemonDel === pokemon) {
+//         return true;
+//       }
+//     }
+//   );
+//   this.pokemons.splice(pokemonIndexToRemove, 1);
+//   this.savePokemons();
+//   this.emitPokemons();
+// }
 
 //Get Pokemons from API
 
