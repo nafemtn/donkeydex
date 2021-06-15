@@ -19,6 +19,11 @@ import { DataService } from './service/data.service';
 import { RouterModule, Routes } from '@angular/router';
 import { AuthGuardService } from './service-auth/auth-guard.service';
 import { HighlightDirective } from './highlight.directive';
+import { PokemonComponent } from './pokemon/pokemon.component';
+import { HomeComponent } from './home/home.component';
+import { GeneralComponent } from './general/general.component';
+import { StatsComponent } from './stats/stats.component';
+import { EvolutionComponent } from './evolution/evolution.component';
 
 const appRoutes: Routes = [
   {path: 'auth-signup', component: AuthSignupComponent },
@@ -41,7 +46,12 @@ const appRoutes: Routes = [
     PokemonCaughtComponent,
     AuthSignupComponent,
     AuthSiginComponent,
-    HighlightDirective
+    HighlightDirective,
+    PokemonComponent,
+    HomeComponent,
+    GeneralComponent,
+    StatsComponent,
+    EvolutionComponent
   ],
   imports: [
     BrowserModule,

@@ -1,0 +1,21 @@
+<p>pokemon works!</p>
+
+<button
+  *ngIf="pokemon"
+  class="btn btn-primary m-3"
+  [routerLink]="['/pokemon', +pokemon.id + 1]"
+  [queryParams]="{allowEdit: 1, allowTest: 0}"
+  fragment="test"
+>
+  Next Pokemon
+</button>
+
+<nav class="nav nav-tabs">
+  <a class="nav-link" routerLink="general" routerLinkActive="active" queryParamsHandling="merge">General</a>
+  <a class="nav-link" routerLink="stats" routerLinkActive="active" queryParamsHandling="merge">Stats</a>
+  <a class="nav-link" routerLink="evolutions" routerLinkActive="active" queryParamsHandling="merge">Evolutions</a>
+</nav>
+
+<div class="p-3">
+  General page
+</div>

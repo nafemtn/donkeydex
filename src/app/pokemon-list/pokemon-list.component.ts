@@ -4,9 +4,7 @@ import { NavigationEnd, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { DataService } from '../service/data.service';
 import  firebase from "firebase/app";
-import { LoggingService } from "src/app/service/logging.service";
-import { PokemonService } from "src/app/service/pokemon.service";
-
+import { PokemonService, Pokemon } from "src/app/service/pokemon.service";
 @Component({
   selector: 'app-pokemon-list',
   templateUrl: './pokemon-list.component.html',
@@ -30,13 +28,14 @@ export class PokemonListComponent implements OnInit, OnDestroy {
   pokemons: any[] = [];
 
   type = '';
-  pokemonsType = [{type:"All"}, {type:"grass"},  {type:"fire"},  {type:"water"},  {type:"electric"}]
+  pokemonsType = [{type:"All"}, {type:"grass"},  {type:"fire"},  {type:"water"},  {type:"electric"}];
+
+
   selectedType: any = this.pokemonsType[0];
 
   constructor(
     private dataService: DataService,
     private router: Router,
-    private loggingService: LoggingService,
     private pokemonService: PokemonService
   ) { }
 
@@ -74,14 +73,10 @@ export class PokemonListComponent implements OnInit, OnDestroy {
 
   };
 
-  onAddPokemon(element: HTMLElement) {
-    this.loggingService.logItemCreated(this.pokemonName);
-    this.pokemonService.addPokemon(this.pokemonName);
+  // onAddPokemon(element: HTMLElement) {
+  //   this.pokemonService.addPokemon(this.pokemonName);
 
-  }
-
-
-
+  // }
 
   searchPokemon(form) {
     console.log(form.value)
@@ -108,7 +103,7 @@ export class PokemonListComponent implements OnInit, OnDestroy {
   }
 
   goToPokemonPage(index: number) {
-    this.router.navigate(["/pokemon/" + index]);
+    this.router.navigate(["/pokemon", index, "general"], { queryParams: { allowEdit: 1 }, fragment: 'test' });
   }
 
   // goToPokemonDetails(id) {

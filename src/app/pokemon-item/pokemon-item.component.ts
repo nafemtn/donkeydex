@@ -1,4 +1,4 @@
-import { Component, Input, EventEmitter, OnInit, OnDestroy, Output } from '@angular/core';
+import { Component, Input, OnInit, OnDestroy} from '@angular/core';
 import { ActivatedRoute, Router  } from '@angular/router';
 import { PokemonListComponent } from '../pokemon-list/pokemon-list.component';
 import { DataService } from '../service/data.service';
@@ -28,7 +28,6 @@ export class PokemonItemComponent implements OnInit {
   constructor(private route: ActivatedRoute,
               private dataService: DataService,
               private router: Router,
-              private loggingService: LoggingService,
               private pokemonService: PokemonService) {}
 
   pokemons: any[] = [];
@@ -71,7 +70,6 @@ export class PokemonItemComponent implements OnInit {
 
   onRemoveClick() {
     this.pokemonService.removePokemon(this.name);
-    this.loggingService.logItemRemoved(this.name);
   }
 
   onBack() {

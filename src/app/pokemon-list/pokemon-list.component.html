@@ -10,13 +10,13 @@
       [(ngModel)]="pokemonName"
       #nameInput
     />
-    <button
+    <!-- <button
       class="btn btn-primary"
       (click)="onAddPokemon(nameInput)"
       type="button"
     >
       Add Pokemon
-    </button>
+    </button> -->
   </div>
 
 
@@ -49,17 +49,18 @@
 <ul class="list-group">
 
   <app-pokemon-item
+  (click)="goToPokemonPage(i)"
   appHighlight="blue"
   defaultColor="gray"
   *ngFor="let pokemon of pokemons; let i = index"
-  [pokemonName]="pokemon"
+  [pokemonName]="pokemon.name"
   >
 
 
 <a [routerLink]="['/pokemon-item', pokemon.id]">
   Voir détail de {{ pokemon.name }}  </a>
 
-  <img [src]="pokemon.sprites.front_default" alt="Pokemon">
+  <!-- <img [src]="pokemon.sprites.front_default" alt="Pokemon"> -->
 
 
   <h3> {{ pokemon.name}} </h3>
