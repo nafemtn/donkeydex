@@ -8,6 +8,8 @@ import firebase from 'firebase';
 
 export class AuthService {
 
+  loggedIn = false;
+
   constructor() { }
 
 //Sign IN
@@ -57,4 +59,25 @@ signOutUser() {
   firebase.auth().signOut();
 }
 
+
+//Se logger
+
+login() {
+  this.loggedIn = true;
 }
+
+logout() {
+  this.loggedIn = false;
+}
+
+isAuthenticated (): Promise<boolean> {
+  return new Promise((resolve) => {
+    setTimeout(() => {
+      resolve(this.loggedIn);
+    }, 800);
+  });
+}
+
+
+}
+

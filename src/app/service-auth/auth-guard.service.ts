@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
-import { CanActivate, Router } from '@angular/router';
+import { CanActivate, Router, ActivatedRouteSnapshot, RouterStateSnapshot,UrlTree, } from '@angular/router';
 import firebase from 'firebase';
 import { Observable } from 'rxjs';
-
+import { AuthService } from "../service-auth/auth.service";
 
 @Injectable
 ({
@@ -11,24 +11,40 @@ import { Observable } from 'rxjs';
 
 export class AuthGuardService implements CanActivate {
 
-  constructor(private router: Router) { }
+  constructor(private router: Router, private authService: AuthService,) {}
 
-  canActivate(): Observable<boolean> | Promise<boolean> | boolean {
-    return new Promise(
-      (resolve, reject) => {
-        firebase.auth().onAuthStateChanged(
-          (user) => {
-            if(user) {
-              resolve(true);
-            } else {
-              this.router.navigate(['/auth', 'sigin']);
-              resolve(false);
-            }
-          }
-        )
-      }
-    )
-
+  canActivate(route: ActivatedRouteSnapshot,
+    state: RouterStateSnapshot):
+    | Observable<boolean | UrlTree>
+    | Promise<boolean | UrlTree>
+    | boolean
+    | UrlTree {  return this.authService.isAuthenticated().then((authenticated: boolean) => {
+      if (authenticated) return true;
+      this.router.navigate(["/"]);
+      return false;
+    });
   }
+
+
+
+
+    // return new Promise(
+    //   (resolve, reject) => {
+    //     firebase.auth().onAuthStateChanged(
+    //       (user) => {
+    //         if(user) {
+    //           resolve(true);
+    //         } else {
+    //           this.router.navigate(['/auth', 'sigin']);
+    //           resolve(false);
+    //         }
+    //       }
+    //     )
+    //   }
+    // )
+
+
+
+
 
 }

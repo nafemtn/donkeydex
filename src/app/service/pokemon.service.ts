@@ -2,9 +2,10 @@ import { Injectable } from '@angular/core';
 import { LoggingService } from './logging.service';
 
 export interface Pokemon {
-  type: string;
-  id: number;
-  name: string;
+
+  id: any;
+  name: any;
+  type: any;
 }
 @Injectable({
   providedIn: "root",
@@ -14,23 +15,25 @@ export class PokemonService {
 
   constructor(private loggingService: LoggingService) { }
 
+  isEditingPokemon = false;
   pokemons: Pokemon[] = [];
 
-  // addPokemon(name: string) {
-  //   this.loggingService.logItemCreated(name);
-  //   this.pokemons.push({
-  //     id: this.pokemons.length,
-  //     name: name,
-  //   });
-  // }
-
-  private findPokemonIndex(name: string): number {
-    return this.pokemons.findIndex((pokemon) => pokemon.name === name);
+  addPokemon(id: number, name: string, type: string) {
+    this.loggingService.logItemCreated(name);
+    this.pokemons.push({
+      id,
+      name,
+      type,
+    });
   }
 
-  removePokemon(name: string) {
-    this.loggingService.logItemRemoved(name);
-    this.pokemons.splice(this.findPokemonIndex(name), 1);
+  private findPokemonIndex(id: any): number {
+    return this.pokemons.findIndex((pokemon) => pokemon.id === id);
+  }
+
+  removePokemon(pokemon: Pokemon) {
+    this.loggingService.logItemRemoved(pokemon.name);
+    this.pokemons.splice(this.findPokemonIndex(pokemon.id), 1);
   }
 
 }

@@ -8,6 +8,8 @@ import { PokemonComponent } from './pokemon/pokemon.component';
 import { GeneralComponent } from './general/general.component';
 import { StatsComponent } from './stats/stats.component';
 import { EvolutionComponent } from './evolution/evolution.component';
+import { NotFoundComponent } from './not-found/not-found.component';
+import { AuthService } from './service-auth/auth.service';
 
 const routes: Routes =
 [
@@ -18,18 +20,20 @@ const routes: Routes =
   { path: 'pokemon-item/:id', component: PokemonItemComponent },
   { path: "", component: HomeComponent },
   { path: "pokemon", component: PokemonComponent},
-
   {
+    canActivate: [AuthService],
     path: "pokemon/:id",
     component: PokemonComponent,
-    children:
-      [
-        { path: "general", component: GeneralComponent},
-        { path: "stats", component: StatsComponent},
-        { path: "evolutions", component: EvolutionComponent},
-        { path: "evolutions", component: EvolutionComponent}
-      ]
+    children: [
+      { path: "general", component: GeneralComponent },
+      { path: "stats", component: StatsComponent },
+      { path: "evolutions", component: EvolutionComponent },
+      { path: "evolutions", component: EvolutionComponent },
+      { path: "", redirectTo: "general", pathMatch: "full" },
+    ],
   },
+  { path: "not-found",component: NotFoundComponent,},
+  { path: "**", redirectTo: "not-found" },
 ]
 @NgModule({
   imports: [RouterModule.forRoot(routes)],

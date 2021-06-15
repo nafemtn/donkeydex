@@ -5,6 +5,8 @@ import { Subscription } from 'rxjs';
 import { DataService } from '../service/data.service';
 import  firebase from "firebase/app";
 import { PokemonService, Pokemon } from "src/app/service/pokemon.service";
+import { map } from "rxjs/operators";
+import { ApiService } from '../service/api.service';
 @Component({
   selector: 'app-pokemon-list',
   templateUrl: './pokemon-list.component.html',
@@ -13,7 +15,11 @@ import { PokemonService, Pokemon } from "src/app/service/pokemon.service";
 export class PokemonListComponent implements OnInit, OnDestroy {
 
   @ViewChild("nameInput") nameInputElementRef: ElementRef | undefined;
-  pokemonName = "";
+
+  // apiPokemons: Pokemon[] = [];
+  apiUrl =
+    "https://donkeydex-28eeb-default-rtdb.europe-west1.firebasedatabase.app/";
+    error: string | undefined;
 
   pokemonsSubscription: Subscription | undefined;
 
@@ -22,26 +28,31 @@ export class PokemonListComponent implements OnInit, OnDestroy {
   pokemonCaughtAdded = false;
 
   public searchFilter: any = '';
-
   id: number | undefined;
-
   pokemons: any[] = [];
+  isFetching = false;
 
   type = '';
   pokemonsType = [{type:"All"}, {type:"grass"},  {type:"fire"},  {type:"water"},  {type:"electric"}];
 
-
   selectedType: any = this.pokemonsType[0];
+  http: any;
+  apiPokemons: any[] | undefined;
+  pokemonId!: string;
+  pokemonType!: string;
+  pokemonName: any;
 
   constructor(
     private dataService: DataService,
     private router: Router,
-    private pokemonService: PokemonService
+    private pokemonService: PokemonService,
+    private apiService: ApiService,
   ) { }
 
   ngOnInit(): void {
 
     this.pokemons = []
+    this.fetchPokemons();
 
     this.dataService.getPokemon()
       .subscribe(
@@ -53,7 +64,6 @@ export class PokemonListComponent implements OnInit, OnDestroy {
 
               // des que je récupère un pokemon je l'add a mon dataservice
               this.dataService.addPokemon(uniqueResponse)
-
 
           });
       });
@@ -69,18 +79,15 @@ export class PokemonListComponent implements OnInit, OnDestroy {
         }
       );
       this.dataService.emitPokemons();
-
-
   };
 
-  // onAddPokemon(element: HTMLElement) {
-  //   this.pokemonService.addPokemon(this.pokemonName);
-
-  // }
+  onPokemonNameType() {
+    this.pokemonService.isEditingPokemon = this.pokemonName !== "";
+    console.log(this.pokemonName);
+  }
 
   searchPokemon(form) {
     console.log(form.value)
-
   }
 
   filterPokemons(newvalue){
@@ -99,11 +106,37 @@ export class PokemonListComponent implements OnInit, OnDestroy {
     } else {
       this.pokemons = this.dataService.getPokemonsByType(this.selectedType.type)
     }
-
   }
 
+  onAddPokemon(element: HTMLElement) {
+    this.apiService.postPokemon(this.pokemonName)
+      .subscribe((responseData: any) => {
+        this.pokemonService.addPokemon(this.pokemonName, this.pokemonId, this.pokemonType);
+        this.pokemonName = "";
+        this.pokemonType = "";
+        this.pokemonId = "";
+        this.pokemonService.isEditingPokemon = false;
+  });
+}
+
+  fetchPokemons() {
+    this.isFetching = true;
+    setTimeout(() => {
+      this.apiService.fetchPokemon()
+        .subscribe((apiPokemons: Pokemon[]) => {
+          this.pokemonService.pokemons = apiPokemons;
+          this.pokemons = this.pokemonService.pokemons;
+          this.isFetching = false;
+        }, error => {
+          console.error(error);
+          this.error = error.message;
+        });
+    }, 1000);
+  }
+
+
   goToPokemonPage(index: number) {
-    this.router.navigate(["/pokemon", index, "general"], { queryParams: { allowEdit: 1 }, fragment: 'test' });
+    this.router.navigate(["/pokemon", index], { queryParams: { allowEdit: 1 }, fragment: 'test' });
   }
 
   // goToPokemonDetails(id) {

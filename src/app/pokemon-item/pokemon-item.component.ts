@@ -5,7 +5,8 @@ import { DataService } from '../service/data.service';
 import {  } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { LoggingService } from 'src/app/service/logging.service';
-import { PokemonService } from 'src/app/service/pokemon.service';
+import { PokemonService, Pokemon} from 'src/app/service/pokemon.service';
+import { ApiService } from "src/app/service/api.service";
 // import { pokemon } from '../pokemon-list/pokemon-list.component';
 
 @Component({
@@ -15,10 +16,10 @@ import { PokemonService } from 'src/app/service/pokemon.service';
 })
 export class PokemonItemComponent implements OnInit {
 
-  @Input('pokemonName') name = '';
+  @Input() pokemon: Pokemon | undefined;
 
   nbCaught = 0;
-  pokemon: any;
+  //pokemon: any;
   // route: any;
   id: number | undefined;
   params: Subscription | undefined;
@@ -28,7 +29,8 @@ export class PokemonItemComponent implements OnInit {
   constructor(private route: ActivatedRoute,
               private dataService: DataService,
               private router: Router,
-              private pokemonService: PokemonService) {}
+              private pokemonService: PokemonService,
+              private apiService: ApiService) {}
 
   pokemons: any[] = [];
 
@@ -69,7 +71,11 @@ export class PokemonItemComponent implements OnInit {
   };
 
   onRemoveClick() {
-    this.pokemonService.removePokemon(this.name);
+    if (!this.pokemon) return;
+    this.apiService.deletePokemon(this.pokemon.id).subscribe(() => {
+      if (!this.pokemon) return;
+      this.pokemonService.removePokemon(this.pokemon);
+    });
   }
 
   onBack() {

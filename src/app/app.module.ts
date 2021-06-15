@@ -24,6 +24,7 @@ import { HomeComponent } from './home/home.component';
 import { GeneralComponent } from './general/general.component';
 import { StatsComponent } from './stats/stats.component';
 import { EvolutionComponent } from './evolution/evolution.component';
+import { NotFoundComponent } from './not-found/not-found.component';
 
 const appRoutes: Routes = [
   {path: 'auth-signup', component: AuthSignupComponent },
@@ -51,7 +52,8 @@ const appRoutes: Routes = [
     HomeComponent,
     GeneralComponent,
     StatsComponent,
-    EvolutionComponent
+    EvolutionComponent,
+    NotFoundComponent
   ],
   imports: [
     BrowserModule,
