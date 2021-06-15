@@ -89,7 +89,7 @@ return this.http.get(`https://pokeapi.co/api/v2/pokemon/${name}`);
   }
 
   setPokemons(pokemons: any[]){
-    this.pokemons =pokemons;
+    this.pokemons = pokemons;
   }
 
 

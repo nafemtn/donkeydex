@@ -34,8 +34,8 @@ export class PokemonListComponent implements OnInit, OnDestroy {
 
   type = '';
   pokemonsType = [{type:"All"}, {type:"grass"},  {type:"fire"},  {type:"water"},  {type:"electric"}];
-
   selectedType: any = this.pokemonsType[0];
+
   http: any;
   apiPokemons: any[] | undefined;
   pokemonId!: string;
@@ -81,16 +81,16 @@ export class PokemonListComponent implements OnInit, OnDestroy {
       this.dataService.emitPokemons();
   };
 
-  onPokemonNameType() {
-    this.pokemonService.isEditingPokemon = this.pokemonName !== "";
-    console.log(this.pokemonName);
-  }
+  // onPokemonNameType() {
+  //   this.pokemonService.isEditingPokemon = this.pokemonName !== "";
+  //   console.log(this.pokemonName);
+  // }
 
   searchPokemon(form) {
     console.log(form.value)
   }
 
-  filterPokemons(newvalue){
+  filterPokemons(newvalue: any){
 
     if (newvalue === '' || !newvalue) {
       this.pokemons = this.dataService.getPokemonsSync()
@@ -108,16 +108,16 @@ export class PokemonListComponent implements OnInit, OnDestroy {
     }
   }
 
-  onAddPokemon(element: HTMLElement) {
-    this.apiService.postPokemon(this.pokemonName)
-      .subscribe((responseData: any) => {
-        this.pokemonService.addPokemon(this.pokemonName, this.pokemonId, this.pokemonType);
-        this.pokemonName = "";
-        this.pokemonType = "";
-        this.pokemonId = "";
-        this.pokemonService.isEditingPokemon = false;
-  });
-}
+  // onAddPokemon(element: HTMLElement) {
+  //   this.apiService.postPokemon(this.pokemonName)
+  //     .subscribe((responseData: any) => {
+  //       this.pokemonService.addPokemon(this.pokemonName, this.pokemonId, this.pokemonType);
+  //       this.pokemonName = "";
+  //       this.pokemonType = "";
+  //       this.pokemonId = "";
+  //       this.pokemonService.isEditingPokemon = false;
+  // });
+//}
 
   fetchPokemons() {
     this.isFetching = true;
