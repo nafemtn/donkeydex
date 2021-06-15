@@ -1,5 +1,7 @@
 import { Injectable } from '@angular/core';
 import { LoggingService } from './logging.service';
+import { GenerationAPI } from '../modeles/generation-api';
+import { HttpClient } from '@angular/common/http';
 
 export interface Pokemon {
 
@@ -13,7 +15,8 @@ export interface Pokemon {
 
 export class PokemonService {
 
-  constructor(private loggingService: LoggingService) { }
+  constructor(private loggingService: LoggingService,
+              private http : HttpClient) { }
 
   isEditingPokemon = false;
   pokemons: Pokemon[] = [];
@@ -36,4 +39,18 @@ export class PokemonService {
     this.pokemons.splice(this.findPokemonIndex(pokemon.id), 1);
   }
 
+  getGeneration() {
+    let url = 'https://pokeapi.co/api/v2/generation/';
+    return this.pokemons;
+  }
+
+  comptagePokemons() {
+    return this.pokemons.length;
+  }
+
+  rechercherPokemon(nomDuPokemon: string) {
+    let regex = new RegExp(nomDuPokemon, 'gi');
+    return this.pokemons.filter(pokemon =>
+      pokemon.name.match(regex));
+  }
 }

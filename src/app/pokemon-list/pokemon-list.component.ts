@@ -1,5 +1,5 @@
 import { ClassGetter } from '@angular/compiler/src/output/output_ast';
-import { Component, ElementRef, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import { Component, ElementRef, OnDestroy, OnInit, ViewChild, Input, Output } from '@angular/core';
 import { NavigationEnd, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { DataService } from '../service/data.service';
@@ -7,6 +7,7 @@ import  firebase from "firebase/app";
 import { PokemonService, Pokemon } from "src/app/service/pokemon.service";
 import { map } from "rxjs/operators";
 import { ApiService } from '../service/api.service';
+import { EventEmitter } from 'events';
 @Component({
   selector: 'app-pokemon-list',
   templateUrl: './pokemon-list.component.html',
@@ -15,6 +16,8 @@ import { ApiService } from '../service/api.service';
 export class PokemonListComponent implements OnInit, OnDestroy {
 
   @ViewChild("nameInput") nameInputElementRef: ElementRef | undefined;
+  @Input() pokemon = {}
+  @Output() evevementClicImage = new EventEmitter;
 
   // apiPokemons: Pokemon[] = [];
   apiUrl =
@@ -106,6 +109,11 @@ export class PokemonListComponent implements OnInit, OnDestroy {
     } else {
       this.pokemons = this.dataService.getPokemonsByType(this.selectedType.type)
     }
+  }
+
+  clicPokemon(nom) {
+    // this.router.navigate(['/pokemon-item', pokemon.id]);
+    this.evevementClicImage.emit(nom)
   }
 
   // onAddPokemon(element: HTMLElement) {

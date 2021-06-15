@@ -1,15 +1,17 @@
 // communicate API
 
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Subject } from 'rxjs';
 import firebase from 'firebase';
 import { resolve } from '@angular/compiler-cli/src/ngtsc/file_system';
+import { Pokemon } from './pokemon.service';
 @Injectable({
   providedIn: 'root'
 })
 export class DataService {
 
+  url = 'https://pokeapi.co/api/v2/pokemon?limit=151';
 //pattern
   pokemons : any[] =[];
 //emettre l'array
@@ -88,6 +90,13 @@ return this.http.get(`https://pokeapi.co/api/v2/pokemon/${name}`);
 
   }
 
+//appel une api
+  getPokemonById(id: any) {
+    const params = new HttpParams().set('id', id);
+    return this.http.get(this.url, {params} );
+  }
+
+
   setPokemons(pokemons: any[]){
     this.pokemons = pokemons;
   }
@@ -111,4 +120,8 @@ return this.http.get(`https://pokeapi.co/api/v2/pokemon/${name}`);
     return this.pokemons.filter(pokemon => pokemon.types[0].type.name === type)
   }
 
+  getGeneration() {
+    let url ='http://pokeapi.co/api/v2/generation/';
+    return this.http.get(url);
+  }
 }

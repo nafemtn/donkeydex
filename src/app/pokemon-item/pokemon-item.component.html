@@ -4,41 +4,19 @@
   <!-- {{ pokemon?.name }} ({{ nbCaught }} caught) -->
   <button type="button" class="btn btn-danger" (click)="onRemoveClick()">Remove</button>
 
-  <div
-  *ngFor="let pokemon of pokemons; let i = index">
-
-    <a [routerLink]="['/pokemon-list']"> Retour </a>
-
-    <img [src]="pokemon.sprites.front_default" alt="Pokemon">
-    <img [src]="pokemon.sprites.back_default" alt="Pokemon">
-
-
-    <h3> {{ pokemon.name}} </h3>
-
-    <p>
-      <b>N°:</b> {{ pokemon.id }}
-    </p>
-
-    <p>
-      <b>Type:</b> {{ pokemon.types[0].type.name }}  {{ pokemon.types[1]?.type.name }}
-    </p>
-
-    <p>
-      <b>Height:</b> {{ pokemon.height }}
-    </p>
-
-    <p>
-      <b>Health:</b> {{ pokemon.stats[0].base_stat }}
-    </p>
-
-    <p>
-      <b>Attack Power:</b> {{ pokemon.stats[1].base_stat }}
-    </p>
-
 <!-- <button (click)="onBack()"> Retour </button> -->
 
 
+<ul *ngFor="let pokemon of pokemons ">
+  <li> <img [src]="pokemon.sprites.front_default" alt="Pokemon" > </li>
+  <li> <img [src]="pokemon.sprites.back_default" alt="Pokemon"> </li>
+  <li> <h3> {{ pokemon.name}} </h3> </li>
+  <li> <b>N°:</b> {{ pokemon.id }} </li>
+  <li> <b>Type:</b> {{ pokemon.types[0].type.name }} {{ pokemon.types[1]?.type.name }} </li>
+  <li>  <b>Height:</b> {{ pokemon.height }} </li>
+  <li> <b>Health:</b> {{ pokemon.stats[0].base_stat }} </li>
+  <li> <b>Attack Power:</b> {{ pokemon.stats[1].base_stat }} </li>
+  <li> <b>Weight:</b> {{ pokemon.weight }} </li>
+  <!-- <li> <a (click)="clicPokemon(name)"> Voir le détail de {{pokemon.name}} </a> </li> -->
+</ul>
 
-  </div>
-
-</div>
