@@ -1,6 +1,9 @@
 
 <h2> Pokedex List </h2>
 
+<div *ngFor= "let caught of pokemonCaught">
+
+</div>
 
 <form>
 
@@ -25,37 +28,22 @@
 <ul class="list-group">
   <p *ngIf="pokemons.length === 0 && !isFetching">Aucun pokémon de l'api</p>
 
-  <ul *ngFor="let pokemon of pokemons ">
+  <ul *ngFor="let pokemon of pokemons; let i = index"
+  [routerLink]="['/pokemon-item', pokemon.id]">
     <li> <img [src]="pokemon.sprites.front_default" alt="Pokemon"> </li>
     <li> <h3> {{ pokemon.name}} </h3> </li>
     <li> <b>N°:</b> {{ pokemon.id }} </li>
     <li> <b>Type:</b> {{ pokemon.types[0].type.name }} {{ pokemon.types[1]?.type.name }} </li>
-    <li> <a> (click)="clicPokemon(id)"> Voir le détail de {{pokemon.name}} </a> </li>
+    <!-- <li> <a> (click)="clicPokemon(id)"> Voir le détail de {{pokemon.name}} </a> </li> -->
 
-  </ul>
-
-  <li>
-  <app-pokemon-item [pokemon]=pokemon (evenementClicImage)="pokemonSelectionne=$event"></app-pokemon-item>
-  </li>
-
-
-
-
-
-<!-- <div class="pokemon-grid">
-  <div class="box"
-  *ngFor="let pokemon of pokemons ">
-    <img [src]="pokemon.sprites.front_default" alt="Pokemon">
-    <h3> {{ pokemon.name}} </h3>
-    <p>
-      <b>N°:</b> {{ pokemon.id }}
-    </p>
-    <p>
-      <b>Type:</b> {{ pokemon.types[0].type.name }} {{ pokemon.types[1]?.type.name }}
-    </p>
-
-    <a (click)="clicPokemon(pokemon)"> Voir le détail de {{pokemon.name}} </a>
-</div> -->
+    <!-- <button *ngFor="let pokemon of pokemons"
+    (click)="addPokemonCaught(pokemon)">
+    {{pokemon}}
+    </button>
+    <button (click)="onSubmit()">
+      Caught!!
+    </button>
+    <p *ngIf=pokemonSelectionne> {{pokemonSelectionne}} </p> -->
 
 
 <!-- <div class="p-3">
@@ -101,8 +89,6 @@ type="button"
 </button> -->
 
 
-
-
     <!-- (click)="goToPokemonPage(i)"
     *ngFor="let pokemon of pokemons; let i = index"
     [pokemon]="pokemon"
@@ -146,11 +132,7 @@ type="button"
 
 
 
-<!--
 
-  <div class="box"
-  *ngFor="let pokemon of pokemons; let i = index"
-  [routerLink]="['/pokemon-item', pokemon.id]"> -->
 
 <!-- <div class="box"
  *ngFor="let pokemon of pokemons" [id]="pokemon.id">

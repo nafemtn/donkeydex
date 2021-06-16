@@ -3,6 +3,9 @@ import { BrowserModule } from '@angular/platform-browser';
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import  firebase from "firebase/app";
+import { AngularFireModule } from "@angular/fire";
+import { AngularFirestoreModule } from "@angular/fire/firestore";
+import { environment } from "../environments/environment";
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -26,6 +29,9 @@ import { StatsComponent } from './stats/stats.component';
 import { EvolutionComponent } from './evolution/evolution.component';
 import { NotFoundComponent } from './not-found/not-found.component';
 import { GenerationComponent } from './generation/generation.component';
+import { FirebaseService } from './service/firebase.service';
+import { PokemonService } from './service/pokemon.service';
+import { LoggingService } from './service/logging.service';
 
 const appRoutes: Routes = [
   {path: 'auth-signup', component: AuthSignupComponent },
@@ -65,10 +71,16 @@ const appRoutes: Routes = [
     FormsModule,
     ReactiveFormsModule,
     RouterModule.forRoot(appRoutes),
+    AngularFireModule.initializeApp(environment.firebaseConfig),
+    AngularFirestoreModule
+
   ],
   providers: [
     AuthService,
     DataService,
+    FirebaseService,
+    PokemonService,
+    LoggingService,
   ],
   bootstrap: [AppComponent]
 })

@@ -16,8 +16,8 @@ import { EventEmitter } from 'events';
 export class PokemonListComponent implements OnInit, OnDestroy {
 
   @ViewChild("nameInput") nameInputElementRef: ElementRef | undefined;
-  @Input() pokemon = {}
-  @Output() evevementClicImage = new EventEmitter;
+  @Input() pokemon = {};
+  @Output() evevementClicPokemon = new EventEmitter;
 
   // apiPokemons: Pokemon[] = [];
   apiUrl =
@@ -25,13 +25,14 @@ export class PokemonListComponent implements OnInit, OnDestroy {
     error: string | undefined;
 
   pokemonsSubscription: Subscription | undefined;
-
+  pokemonSelectionne;
   // addCaughtPokemon = false;
   pokemonAddListCaught = "Add a captured pokemon"
   pokemonCaughtAdded = false;
+  public pokemonCaught: any;
 
   public searchFilter: any = '';
-  id: number | undefined;
+  id!: number |  any;
   pokemons: any[] = [];
   isFetching = false;
 
@@ -56,10 +57,12 @@ export class PokemonListComponent implements OnInit, OnDestroy {
 
     this.pokemons = []
     this.fetchPokemons();
+//
 
     this.dataService.getPokemon()
       .subscribe(
         (response: any) => {
+          this.pokemon = response
 
         response.results.forEach((result: { name: string; }) => {
           this.dataService.getMoreData(result.name)
@@ -82,7 +85,17 @@ export class PokemonListComponent implements OnInit, OnDestroy {
         }
       );
       this.dataService.emitPokemons();
+
+      this.dataService.getPokemonCaught()
+      .subscribe(
+        (response: any) => (this.pokemonCaught = response))
+
   };
+
+  getPokemonCaught = () =>
+  this.dataService
+    .getPokemonCaught()
+    .subscribe(response => (this.pokemonCaught = response));
 
   // onPokemonNameType() {
   //   this.pokemonService.isEditingPokemon = this.pokemonName !== "";
@@ -111,21 +124,16 @@ export class PokemonListComponent implements OnInit, OnDestroy {
     }
   }
 
-  clicPokemon(nom) {
-    // this.router.navigate(['/pokemon-item', pokemon.id]);
-    this.evevementClicImage.emit(nom)
-  }
-
-  // onAddPokemon(element: HTMLElement) {
-  //   this.apiService.postPokemon(this.pokemonName)
-  //     .subscribe((responseData: any) => {
-  //       this.pokemonService.addPokemon(this.pokemonName, this.pokemonId, this.pokemonType);
-  //       this.pokemonName = "";
-  //       this.pokemonType = "";
-  //       this.pokemonId = "";
-  //       this.pokemonService.isEditingPokemon = false;
-  // });
-//}
+  onAddPokemon(element: HTMLElement) {
+    this.apiService.postPokemon(this.pokemonName)
+      .subscribe((responseData: any) => {
+        this.pokemonService.addPokemon(this.pokemonName, this.pokemonId, this.pokemonType);
+        this.pokemonName = "";
+        this.pokemonType = "";
+        this.pokemonId = "";
+        this.pokemonService.isEditingPokemon = false;
+  });
+}
 
   fetchPokemons() {
     this.isFetching = true;
@@ -144,12 +152,12 @@ export class PokemonListComponent implements OnInit, OnDestroy {
 
 
   goToPokemonPage(index: number) {
-    this.router.navigate(["/pokemon", index], { queryParams: { allowEdit: 1 }, fragment: 'test' });
+    this.router.navigate(["/pokemon", index], {
+      queryParams: { allowEdit: 1 },
+      fragment: 'test' });
   }
 
-  // goToPokemonDetails(id) {
-  //   this.router.navigate(['pokemon-item', id]);
-  // }
+  //
 
       // add caught pokemon list
 
