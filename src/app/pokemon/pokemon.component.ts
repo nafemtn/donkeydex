@@ -27,6 +27,8 @@ export class PokemonComponent implements OnInit, OnDestroy {
       id: pokemonId,
       name: this.pokemonService.pokemons[pokemonId].name,
       type: this.pokemonService.pokemons[pokemonId].type,
+      types: this.pokemonService.pokemons[pokemonId].types,
+      sprites: this.pokemonService.pokemons[pokemonId].sprites,
     }
   }
 

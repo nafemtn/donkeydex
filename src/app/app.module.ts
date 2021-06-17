@@ -61,7 +61,7 @@ const appRoutes: Routes = [
     StatsComponent,
     EvolutionComponent,
     NotFoundComponent,
-    GenerationComponent
+    GenerationComponent,
   ],
   imports: [
     BrowserModule,

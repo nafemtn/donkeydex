@@ -5,7 +5,6 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 import { Subject } from 'rxjs';
 import firebase from 'firebase';
 import { resolve } from '@angular/compiler-cli/src/ngtsc/file_system';
-import { Pokemon } from './pokemon.service';
 import { AngularFirestore } from "@angular/fire/firestore";
 
 @Injectable({
@@ -15,6 +14,8 @@ export class DataService {
 
 
   url = 'https://pokeapi.co/api/v2/pokemon?limit=151';
+  urlApi = 'https://pokeapi.co/api/v2/pokemon/${id}/';
+
 //pattern
   pokemons : any[] =[];
 //emettre l'array
@@ -24,6 +25,11 @@ export class DataService {
     private http:HttpClient,
     public firestore: AngularFirestore,
   ) {}
+
+//getdetail du pokemon
+getPokemonDetail() {
+
+}
 
   emitPokemons() {
     this.pokemonsSubjects.next(this.pokemons);
@@ -91,6 +97,12 @@ getPokemons() {
  return this.http.get<DataService>(url)
 }
 
+
+getPokemonsDetail(id: number) {
+  let url =`https://pokeapi.co/api/v2/pokemon/${id}`;
+  return this.http.get<DataService>(this.urlApi)
+ }
+
 getPokemon() {
   return this.http.get<DataService>(this.url)
 }
@@ -104,14 +116,16 @@ return this.http.get(`https://pokeapi.co/api/v2/pokemon/${name}`);
   }
 
 //appel une api poke detail
+
+  getDetailPokemon(id: number) {
+  return this.http.get(`https://pokeapi.co/api/v2/pokemon/${id}`);
+    }
+
   getPokemonById(id: any) {
     const params = new HttpParams().set('id', id);
     return this.http.get(this.url, {params} );
   }
 
-  getPokemonDetail(id: number) {
-    return this.http.get(`https://pokeapi.co/api/v2/pokemon/${id}`);
-  }
 
 
   setPokemons(pokemons: any[]){

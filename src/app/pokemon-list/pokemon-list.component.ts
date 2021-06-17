@@ -20,9 +20,9 @@ export class PokemonListComponent implements OnInit, OnDestroy {
   @Output() evevementClicPokemon = new EventEmitter;
 
   // apiPokemons: Pokemon[] = [];
-  apiUrl =
-    "https://donkeydex-28eeb-default-rtdb.europe-west1.firebasedatabase.app/";
-    error: string | undefined;
+  // apiUrl =
+  //   "https://donkeydex-28eeb-default-rtdb.europe-west1.firebasedatabase.app/";
+  error: string | undefined;
 
   pokemonsSubscription: Subscription | undefined;
   pokemonSelectionne;
@@ -33,7 +33,7 @@ export class PokemonListComponent implements OnInit, OnDestroy {
 
   public searchFilter: any = '';
   id!: number |  any;
-  pokemons: any[] = [];
+  pokemons: Pokemon[] = [];
   isFetching = false;
 
   type = '';
@@ -74,7 +74,9 @@ export class PokemonListComponent implements OnInit, OnDestroy {
           });
       });
       });
+//
 
+//
       this.pokemons=this.dataService.getPokemonsSync()
 //
       this.pokemonsSubscription = this.dataService.pokemonsSubjects.subscribe
@@ -149,6 +151,16 @@ export class PokemonListComponent implements OnInit, OnDestroy {
         });
     }, 1000);
   }
+
+  // fetchPokemons() {
+  //   this.http.get("https://pokeapi.co/api/v2/pokemon?limit=151").subscribe((result: any) => {
+  //     const pokemon = result.results[0];
+
+  //     this.http.get(`https://pokeapi.co/api/v2/pokemon/pokemon/${pokemon}`).subscribe((result) => {
+  //       console.log(result);
+  //     })
+  //   })
+  // }
 
 
   goToPokemonPage(index: number) {

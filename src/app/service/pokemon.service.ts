@@ -5,9 +5,16 @@ import { HttpClient } from '@angular/common/http';
 
 export interface Pokemon {
 
-  id: any;
-  name: any;
-  type: any;
+  id: number;
+  name: string;
+  type: string[];
+  types: any[];
+  sprites:  {
+    front_default: "",
+    back_default: ""
+
+  };
+
 }
 @Injectable({
   providedIn: "root",
@@ -19,7 +26,9 @@ export class PokemonService {
               private http : HttpClient) { }
 
   isEditingPokemon = false;
-  pokemons: Pokemon[] = [];
+  pokemons: any[] = [];
+  pokemon: any[] = [];
+
 
   addPokemon(id: number, name: string, type: string) {
     this.loggingService.logItemCreated(name);
@@ -34,7 +43,7 @@ export class PokemonService {
     return this.pokemons.findIndex((pokemon) => pokemon.id === id);
   }
 
-  removePokemon(pokemon: Pokemon) {
+  removePokemon(pokemon: any) {
     this.loggingService.logItemRemoved(pokemon.name);
     this.pokemons.splice(this.findPokemonIndex(pokemon.id), 1);
   }

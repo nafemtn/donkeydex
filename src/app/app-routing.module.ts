@@ -4,7 +4,7 @@ import { PokemonItemComponent } from './pokemon-item/pokemon-item.component';
 import { PokemonListComponent } from './pokemon-list/pokemon-list.component';
 import { PokemonCaughtComponent } from './pokemon-caught/pokemon-caught.component';
 import { HomeComponent } from './home/home.component';
-import { PokemonComponent } from './pokemon/pokemon.component';
+// import { PokemonComponent } from './pokemon/pokemon.component';
 import { GeneralComponent } from './general/general.component';
 import { StatsComponent } from './stats/stats.component';
 import { EvolutionComponent } from './evolution/evolution.component';
@@ -19,11 +19,11 @@ const routes: Routes =
   { path: 'pokemon-list', component: PokemonListComponent },
   { path: 'pokemon-item/:id', component: PokemonItemComponent },
   { path: "", component: HomeComponent },
-  { path: "pokemon", component: PokemonComponent},
+  // { path: "pokemon", component: PokemonComponent},
   {
     canActivate: [AuthService],
     path: "pokemon/:id",
-    component: PokemonComponent,
+    // component: PokemonComponent,
     children: [
       { path: "general", component: GeneralComponent },
       { path: "stats", component: StatsComponent },
