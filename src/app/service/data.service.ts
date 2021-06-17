@@ -7,6 +7,7 @@ import firebase from 'firebase';
 import { resolve } from '@angular/compiler-cli/src/ngtsc/file_system';
 import { AngularFirestore } from "@angular/fire/firestore";
 
+
 @Injectable({
   providedIn: 'root'
 })

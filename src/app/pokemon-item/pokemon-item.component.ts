@@ -38,10 +38,10 @@ export class PokemonItemComponent implements OnInit {
               private apiService: ApiService,
               private http: HttpClient,) {}
 
-  pokemons: any[] = [];
+  pokemons: any;
   ngOnInit(): void {
 
-    this.fetchPokemonsDetails();
+    // this.fetchPokemonsDetails(pokemonId);
 
     let id = this.router?.getCurrentNavigation();
       this.pokemons = this.dataService.getPokemonsSync();
@@ -70,7 +70,9 @@ export class PokemonItemComponent implements OnInit {
     // );
 
     this.sub = this.route.params.subscribe(params => {
-      this.id = +params['id']; // (+) converts string 'id' to a number
+      this.id = +params['id'];
+      this.fetchPokemonsDetails(this.id);
+      // (+) converts string 'id' to a number
 
       // this.dataService.getDetailPokemon(id)
       // .subscribe(
@@ -107,22 +109,14 @@ export class PokemonItemComponent implements OnInit {
     this.sub.unsubscribe();
 }
 
-fetchPokemonsDetails() {
+fetchPokemonsDetails(pokemonId: number) {
   this.http
-    .get(`https://pokeapi.co/api/v2/pokemon?limit=151`)
-    .subscribe((result: any) => {
-      // console.log(result);
-      const pokemon = result.results[0];
-      const tmpStr = pokemon.url.split('/');
-      const pokemonId = tmpStr[tmpStr.length - 2];
-      console.log(pokemonId);
-      this.http
         .get(`https://pokeapi.co/api/v2/pokemon/${pokemonId}/`)
         .subscribe((result) => {
-          this.pokemons.push(result);
+          this.pokemon = result
           console.log(result);
         });
-    });
+
 }
 
 // fetchPokemons() {
