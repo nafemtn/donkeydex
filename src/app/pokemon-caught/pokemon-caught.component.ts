@@ -8,7 +8,7 @@ import  firebase from "firebase/app";
   styleUrls: ['./pokemon-caught.component.scss']
 })
 export class PokemonCaughtComponent implements OnInit {
-
+  ball: any= "assets/img/ball.jpg";
   constructor(private dataService: DataService) { }
 
   pokemons: any[] = [];

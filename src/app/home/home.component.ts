@@ -11,6 +11,11 @@ import { PokemonService } from '../service/pokemon.service';
 })
 export class HomeComponent implements OnInit {
 
+  //image :
+  pokemonsImage: any= "assets/img/footer.jpg";
+
+
+
   loggedIn = false;
 
   constructor(public authService: AuthService, private pokemonService: PokemonService) { }

@@ -1,27 +1,25 @@
 
-<header>
+<nav class="navbar navbar-light bg-light">
+
+  <div class="container-fluid">
+    <a class="navbar-brand" href="#">
 
   <div class="titre1">
-    <h1> My Donkey- <span class="spanTitre"> Pokedex </span></h1>
+    <img  class="img-thumbnail" class="img-fluid" width="180px" [src]=pokeLogo>
   </div>
 
-</header>
+  </a>
 
-<a routerLink="/"> Pokemons List</a> |
-<a routerLink="/pokemon-caught"> Pokemons Caught</a> |
-<a routerLink="/pokemon-item"> Pokemons Item</a>
+  <a routerLink="/pokemon-list" > Pokemons List</a> |
+  <a routerLink="/pokemon-caught"> Pokemons Caught</a> |
+  <!-- <a routerLink="/pokemon-item"> Pokemons Item</a> -->
 
+  <a routerLinkActive="active" *ngIf="!isAuth" routerLink="/auth-signup"> Créer un compte</a> |
 
+  <a routerLinkActive="active" *ngIf="!isAuth" routerLink="/auth-sigin">  Connexion </a>
 
-<li routerLinkActive="active" *ngIf="!isAuth">
-<a routerLink="/auth-signup"> Créer un compte</a>
-</li>
-
-<li routerLinkActive="active" *ngIf="!isAuth">
-<a routerLink="/auth-sigin">  Connexion </a>
-</li>
-
-
-<li>
   <a (click)="onSignOut()" *ngIf="isAuth" style="cursor:pointer"> Se déconnecter</a>
-</li>
+
+</div>
+
+</nav>

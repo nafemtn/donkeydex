@@ -10,6 +10,7 @@ import { AuthService } from '../../service-auth/auth.service';
 })
 export class AuthSignupComponent implements OnInit {
 
+  cutePK: any= "assets/img/bg.png";
   signUpForm!: FormGroup;
   errorMessage: string | undefined;
 

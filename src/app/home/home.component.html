@@ -1,7 +1,37 @@
-<div class="container">
-  <h1 class="display-1">Pokedex</h1>
-  <button type="button" *ngIf="!authService.loggedIn" class="btn btn-primary" (click)="onLogin()">Se connecter</button>
-  <button type="button" *ngIf="authService.loggedIn" class="btn btn-danger" (click)="onLogout()">Se déconnecter</button>
-  <hr>
 
-  <app-pokemon-list></app-pokemon-list>
+  <head>
+    <meta charset="UTF-8">
+  </head>
+
+  <body>
+    <header>
+
+      <div class="titre1">
+        <h1> Bienvenu sur ta page de <span class="spanTitre">
+          <br>  Pokemon ! </span></h1>
+      </div>
+
+
+    </header>
+
+    <main>
+
+      <section class="section1">
+        <!-- <img  class="img-fluid" [src]=pokeBG> -->
+      </section>
+
+
+
+
+      <router-outlet></router-outlet>
+
+
+    </main>
+
+    <footer>
+      <figure>
+        <img  class="img-fluid" [src]=pokemonsImage>
+      </figure>
+    </footer>
+  </body>
+

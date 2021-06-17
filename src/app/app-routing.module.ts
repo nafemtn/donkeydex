@@ -10,10 +10,11 @@ import { StatsComponent } from './stats/stats.component';
 import { EvolutionComponent } from './evolution/evolution.component';
 import { NotFoundComponent } from './not-found/not-found.component';
 import { AuthService } from './service-auth/auth.service';
+import { AuthGuardService } from './service-auth/auth-guard.service';
 
 const routes: Routes =
 [
-  { path: '', component: PokemonListComponent },
+  { path: '', component: HomeComponent },
   { path: 'pokemon-caught', component: PokemonCaughtComponent},
   { path: 'pokemon-item', component: PokemonItemComponent},
   { path: 'pokemon-list', component: PokemonListComponent },
@@ -21,7 +22,7 @@ const routes: Routes =
   { path: "", component: HomeComponent },
   // { path: "pokemon", component: PokemonComponent},
   {
-    canActivate: [AuthService],
+    canActivate: [AuthGuardService],
     path: "pokemon/:id",
     // component: PokemonComponent,
     children: [

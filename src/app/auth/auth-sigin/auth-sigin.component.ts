@@ -9,6 +9,7 @@ import { AuthService } from '../../service-auth/auth.service';
   styleUrls: ['./auth-sigin.component.scss']
 })
 export class AuthSiginComponent implements OnInit {
+  cutePK: any= "assets/img/bg.png";
 
     signInForm!: FormGroup;
     errorMessage: string | undefined;

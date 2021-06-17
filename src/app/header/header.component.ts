@@ -9,6 +9,7 @@ import firebase from 'firebase';
 })
 export class HeaderComponent implements OnInit {
 
+  pokeLogo : any= "assets/img/pikachu.png";
   isAuth: boolean | undefined;
 
   constructor(private authService: AuthService,) { }

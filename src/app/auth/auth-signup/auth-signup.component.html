@@ -1,13 +1,10 @@
-<p>auth-signup works!</p>
 
-<div class="row">
+
+<div class="center-div">
 
   <div class="cols-sm-8 col-sm-offset-2">
 
     <h2>Créer un compte</h2>
-
-    <form
-      [formGroup]="signUpForm" (ngSubmit)="onSubmit()">
 
     <div class="form-group">
       <label for="email">  Votre mail </label>
@@ -21,9 +18,11 @@
 
     <button class="btn btn-primary" type="submit" [disabled]="signUpForm.invalid"> Creer mon compte</button>
 
-    </form>
     <p class="text-danger"> {{ errorMessage }} </p>
 
   </div>
 
+  <img  [src]=cutePK>
+
 </div>
+

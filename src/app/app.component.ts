@@ -7,6 +7,8 @@ import firebase from 'firebase';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
+
+
   title = 'donkeyDex';
   constructor() {
     var firebaseConfig = {

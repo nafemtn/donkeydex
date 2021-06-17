@@ -37,12 +37,16 @@ body {
   height: 300px;
   box-shadow: 1px 2px 5px rgba(0, 0, 0, 0.3);
   display: grid;
-
 }
 
-.pokemon-grid img {
-  max-width: auto;
-  display: inline-block;
-
+.container {
+  justify-content: center;
 }
+li {
+  list-style-type: none;
+  }
 
+.center-div {
+  margin: 0 auto;
+  width: 250px;
+}
