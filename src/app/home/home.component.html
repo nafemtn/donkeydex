@@ -4,23 +4,48 @@
   </head>
 
   <body>
-    <header>
-
-      <div class="titre1">
-        <h1> Bienvenu sur ta page de <span class="spanTitre">
-          <br>  Pokemon ! </span></h1>
-      </div>
-
-
-    </header>
 
     <main>
 
-      <section class="section1">
-        <!-- <img  class="img-fluid" [src]=pokeBG> -->
+    <section class="section1">
+
+
+      <div class="titre1">
+        <h1> Bienvenu sur ton   <span class="spanTitre">
+           DonkeyDex ! </span> </h1>
+      </div>
+
+    <figure>
+      <img  class="img-fluid" width="100%" [src]=pokemonsImage>
+    </figure>
+
+
       </section>
 
 
+
+
+      <section class="section2">
+
+        <div class="song">
+          <h2 class="spanTitre"> Let sing !</h2>
+          <p>Un jour je serai le meilleur dresseur
+            Je me battrai sans répit
+            Je ferai tout pour être vainqueur
+            Et gagner les défis
+            Je parcourrai la terre entière
+            Traquant avec espoir
+            Les Pokémon et leurs mystères
+            Le secret de leurs pouvoirs </p>
+          <p> <b> Pokémon ! </b> </p>
+          <p>Attrapez les tous
+          C'est notre histoire
+          Ensemble pour la victoire
+          <p> <b> Pokémon ! </b> </p>
+          <p> Rien ne nous arrêtera </p>
+        </div>
+
+      </section>
 
 
       <router-outlet></router-outlet>
@@ -29,9 +54,8 @@
     </main>
 
     <footer>
-      <figure>
-        <img  class="img-fluid" [src]=pokemonsImage>
-      </figure>
+
+
     </footer>
   </body>
 

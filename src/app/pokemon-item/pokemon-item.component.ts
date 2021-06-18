@@ -16,7 +16,9 @@ import { HttpClient, HttpParams } from '@angular/common/http';
   styleUrls: ['./pokemon-item.component.scss']
 })
 export class PokemonItemComponent implements OnInit {
-
+  bg: any= "assets/img/group.jpg";
+  poki: any= "assets/img/klipartz.com.png";
+  groupbg: any= "assets/img/babypoki.png";
   @Input() pokemon: any | undefined;
   @Output() evenementClicPokemon = new EventEmitter;
 

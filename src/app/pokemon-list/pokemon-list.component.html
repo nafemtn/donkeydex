@@ -5,7 +5,7 @@
 
 </div>
 
-<form>
+<form class="center">
 
 <input
     type="text"
@@ -25,15 +25,25 @@
 
 </form>
 
-<ul class="list-group">
+
   <p *ngIf="pokemons.length === 0 && !isFetching">Aucun pokémon de l'api</p>
 
-  <ul class="box" *ngFor="let pokemon of pokemons; let i = index"
-  >
-    <li> <img [src]="pokemon.sprites.front_default" alt="Pokemon" [routerLink]="['/pokemon-item', pokemon.id]"> </li>
-    <li> <h3> {{ pokemon.name}} </h3> </li>
-    <li> <b>N°:</b> {{ pokemon.id }} </li>
-    <li> <b>Type:</b> {{ pokemon.types[0].type.name }} {{ pokemon.types[1]?.type.name }} </li>
+<div  class="pokemon-grid ">
+  <div class="box"  *ngFor="let pokemon of pokemons; let i = index"
+  [routerLink]="['/pokemon-item', pokemon.id]">
+
+    <li class="col"> <img [src]="pokemon.sprites.front_default" alt="Pokemon" > </li>
+    <li class="col"> <h3> {{ pokemon.name}} </h3> </li>
+    <li class="col"> <b>N°:</b> {{ pokemon.id }} </li>
+    <li class="col"> <b>Type:</b> {{ pokemon.types[0].type.name }} {{ pokemon.types[1]?.type.name }} </li>
+
+  </div>
+
+</div>
+
+
+
+
     <!-- <li> <a> (click)="clicPokemon(id)"> Voir le détail de {{pokemon.name}} </a> </li> -->
 
     <!-- <button *ngFor="let pokemon of pokemons"

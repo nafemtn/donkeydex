@@ -33,15 +33,21 @@ body {
 }
 
 .pokemon-grid .box {
-  width: 100%;
+  margin: 0 auto;
+  display: grid;
+  width: 300px;
   height: 300px;
   box-shadow: 1px 2px 5px rgba(0, 0, 0, 0.3);
-  display: grid;
+  text-align: center;
+
 }
 
 .container {
-  justify-content: center;
+  margin: 0 auto;
+  width: 300px;
 }
+
+
 li {
   list-style-type: none;
   }
@@ -49,4 +55,14 @@ li {
 .center-div {
   margin: 0 auto;
   width: 250px;
+}
+
+.song {
+  width: 200px;
+  margin: 0 auto;
+}
+
+.btn {
+  margin-top: 20px;
+  margin-left: 85%;
 }
