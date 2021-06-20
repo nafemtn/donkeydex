@@ -7,22 +7,23 @@
 
 <form class="center">
 
-<input
-    type="text"
-    width=""
-    class="form-control"
-    placeholder="Chercher un Pokemon"
-    [(ngModel)]="pokemonName"
-    (ngModelChange) ="filterPokemons($event)"
-    name="search"
-  />
+  <input
+      type="text"
+      class="form-control "
+      placeholder="Chercher un Pokemon"
+      [(ngModel)]="pokemonName"
+      (ngModelChange) ="filterPokemons($event)"
+      name="search"
+    />
 
-  <label for="type"> Filtrer par les Pokemons par Type  &nbsp; </label>
-  <select class="form-select form-select-lg mb-3" aria-label=".form-select-lg example" name="type" id="type"  [(ngModel)]='selectedType' name="type">
-    <option *ngFor=" let type of pokemonsType" [ngValue]='type' > {{type.type}} </option>
-  </select>
-
-  <button type="submit" class="btn-danger text-warning m-3 rounded"  (click)="filterType()"> Filtrer ! </button>
+  <div class="container">
+      <label for="type"> Filtrer les Pokemons par Type  &nbsp; </label>
+      <select class="filtre mt-3"  name="type" id="type"  [(ngModel)]='selectedType' name="type">
+        <option *ngFor=" let type of pokemonsType" [ngValue]='type' > {{type.type}} </option>
+      </select>
+<br>
+      <button type="submit" class="btn-danger text-warning m-3 rounded filtre" (click)="filterType()"> &nbsp; &nbsp;Filtrer ! &nbsp; &nbsp; </button>
+  </div>
 
 </form>
 
@@ -37,6 +38,10 @@
     <li class="col"> <h3> {{ pokemon.name}} </h3> </li>
     <li class="col"> <b>N°:</b> {{ pokemon.id }} </li>
     <li class="col"> <b>Type:</b> {{ pokemon.types[0].type.name }} {{ pokemon.types[1]?.type.name }} </li>
+
+    <div>
+      <img  width="60px" [src]=ball routerLink="/pokemon-caught">
+    </div>
 
   </div>
 

@@ -21,6 +21,7 @@ export class DataService {
   pokemons : any[] =[];
 //emettre l'array
   pokemonsSubjects = new Subject<any[]>();
+  form: any;
 
   constructor(
     private http:HttpClient,
@@ -157,7 +158,19 @@ return this.http.get(`https://pokeapi.co/api/v2/pokemon/${name}`);
   }
 //appel to firebase
 
+
+
+  createpokemonCaught(data) {
+    return new Promise<any>((resolve, reject) =>{
+      this.firestore
+          .collection("pokemonCaught")
+          .add(data)
+          .then(res => {}, err => reject(err));
+  });
+  }
+
   getPokemonCaught() {
     return this.firestore.collection("pokemonCaught").snapshotChanges();
   }
+
 }

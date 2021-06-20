@@ -16,6 +16,7 @@ import { EventEmitter } from 'events';
 export class PokemonListComponent implements OnInit, OnDestroy {
 
   bgList: any= "assets/img/groupet.jpg";
+  ball: any= "assets/img/pokeball.png";
 
   @ViewChild("nameInput") nameInputElementRef: ElementRef | undefined;
   @Input() pokemon = {};
@@ -49,6 +50,7 @@ export class PokemonListComponent implements OnInit, OnDestroy {
   pokemonId!: string;
   pokemonType!: string;
   pokemonName: any;
+  firestore: any;
 
   constructor(
     private dataService: DataService,
@@ -61,6 +63,7 @@ export class PokemonListComponent implements OnInit, OnDestroy {
 
     this.pokemons = []
     this.fetchPokemons();
+    this.getPokemonCaught();
 //
 
     this.dataService.getPokemon()
@@ -189,6 +192,28 @@ export class PokemonListComponent implements OnInit, OnDestroy {
   ngOnDestroy() {
     this.pokemonsSubscription?.unsubscribe();
   }
+
+  //firebase last try
+
+  onSubmit() {
+
+    //form?
+
+    this.dataService.form.value.coffeeOrder = this.dataService;
+      let data = this.dataService.form.value;
+
+     this.dataService.createpokemonCaught(data)
+         .then(res => {
+             /*dunno*/
+         });
+  }
+
+
+  getPokemonCaught = () =>
+     this.dataService
+     .getPokemonCaught()
+     .subscribe(res =>(this.pokemonCaught = res));
+
 
 
 };
