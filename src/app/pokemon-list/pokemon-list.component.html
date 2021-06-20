@@ -9,19 +9,20 @@
 
 <input
     type="text"
+    width=""
     class="form-control"
-    placeholder="Entrer le nom d'un pokémon"
+    placeholder="Chercher un Pokemon"
     [(ngModel)]="pokemonName"
     (ngModelChange) ="filterPokemons($event)"
     name="search"
   />
 
-  <label for="type"> Type of Pokemon</label>
-  <select name="type" id="type"  [(ngModel)]='selectedType' name="type">
+  <label for="type"> Filtrer par les Pokemons par Type  &nbsp; </label>
+  <select class="form-select form-select-lg mb-3" aria-label=".form-select-lg example" name="type" id="type"  [(ngModel)]='selectedType' name="type">
     <option *ngFor=" let type of pokemonsType" [ngValue]='type' > {{type.type}} </option>
   </select>
 
-  <button type="submit" (click)="filterType()"> Search </button>
+  <button type="submit" class="btn-danger text-warning m-3 rounded"  (click)="filterType()"> Filtrer ! </button>
 
 </form>
 
@@ -29,8 +30,8 @@
   <p *ngIf="pokemons.length === 0 && !isFetching">Aucun pokémon de l'api</p>
 
 <div  class="pokemon-grid ">
-  <div class="box"  *ngFor="let pokemon of pokemons; let i = index"
-  [routerLink]="['/pokemon-item', pokemon.id]">
+  <div class="box"  *ngFor="let pokemon of pokemons; let i = index;"
+  [routerLink]="['/pokemon-item', pokemon.id] | paginate: { itemsPerPage: 10, currentPage: page, totalItems: totalPokemons }">
 
     <li class="col"> <img [src]="pokemon.sprites.front_default" alt="Pokemon" > </li>
     <li class="col"> <h3> {{ pokemon.name}} </h3> </li>
@@ -167,6 +168,6 @@ type="button"
 
 
 
-
+ <pagination-controls></pagination-controls>
 
 

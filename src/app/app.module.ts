@@ -32,6 +32,7 @@ import { GenerationComponent } from './generation/generation.component';
 import { FirebaseService } from './service/firebase.service';
 import { PokemonService } from './service/pokemon.service';
 import { LoggingService } from './service/logging.service';
+import { NgxPaginationModule } from 'ngx-pagination';
 
 const appRoutes: Routes = [
   {path: 'auth-signup', component: AuthSignupComponent },
@@ -72,7 +73,8 @@ const appRoutes: Routes = [
     ReactiveFormsModule,
     RouterModule.forRoot(appRoutes),
     AngularFireModule.initializeApp(environment.firebaseConfig),
-    AngularFirestoreModule
+    AngularFirestoreModule,
+    NgxPaginationModule
 
   ],
   providers: [

@@ -93,8 +93,8 @@ getPokemonDetail() {
 //   return this.http.get(`https://pokeapi.co/api/v2/pokemon?limit=151`);
 // }
 
-getPokemons() {
- let url ='https://pokeapi.co/api/v2/pokemon?limit=151';
+getPokemons(offset: number) {
+ let url ='https://pokeapi.co/api/v2/pokemon?limit=151&offset=${offset}';
  return this.http.get<DataService>(url)
 }
 

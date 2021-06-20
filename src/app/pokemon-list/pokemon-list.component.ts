@@ -15,6 +15,8 @@ import { EventEmitter } from 'events';
 })
 export class PokemonListComponent implements OnInit, OnDestroy {
 
+  bgList: any= "assets/img/groupet.jpg";
+
   @ViewChild("nameInput") nameInputElementRef: ElementRef | undefined;
   @Input() pokemon = {};
   @Output() evevementClicPokemon = new EventEmitter;
@@ -30,6 +32,8 @@ export class PokemonListComponent implements OnInit, OnDestroy {
   pokemonAddListCaught = "Add a captured pokemon"
   pokemonCaughtAdded = false;
   public pokemonCaught: any;
+  page = 1;
+  totalPokemons: number | undefined ;
 
   public searchFilter: any = '';
   id!: number |  any;

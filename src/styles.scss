@@ -62,7 +62,16 @@ li {
   margin: 0 auto;
 }
 
-.btn {
-  margin-top: 20px;
-  margin-left: 85%;
+
+
+html {
+  background: bgList no-repeat center center fixed;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+}
+
+pagination-controls {
+  text-align: center;
 }
