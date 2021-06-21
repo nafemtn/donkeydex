@@ -119,6 +119,7 @@ fetchPokemonsDetails(pokemonId: number) {
           console.log(result);
         });
 
+
 }
 
 // fetchPokemons() {

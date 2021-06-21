@@ -9,6 +9,7 @@ import firebase from 'firebase';
 })
 export class HeaderComponent implements OnInit {
 
+  isCollapsed = true;
   pokeLogo : any= "assets/img/pikachu.png";
   isAuth: boolean | undefined;
 
