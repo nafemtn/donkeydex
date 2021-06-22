@@ -3,9 +3,7 @@ import { Component, ElementRef, OnDestroy, OnInit, ViewChild, Input, Output } fr
 import { NavigationEnd, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { DataService } from '../service/data.service';
-import  firebase from "firebase/app";
 import { PokemonService, Pokemon } from "src/app/service/pokemon.service";
-import { map } from "rxjs/operators";
 import { ApiService } from '../service/api.service';
 import { EventEmitter } from 'events';
 @Component({
@@ -67,8 +65,6 @@ isImageLoading: boolean | undefined;
   ngOnInit(): void {
 
     this.pokemons = []
-    this.fetchPokemons();
-    this.getPokemonCaught();
 //
 
     this.dataService.getPokemon()
@@ -99,16 +95,9 @@ isImageLoading: boolean | undefined;
       );
       this.dataService.emitPokemons();
 
-      this.dataService.getPokemonCaught()
-      .subscribe(
-        (response: any) => (this.pokemonCaught = response))
 
   };
 
-  getPokemonCaught = () =>
-  this.dataService
-    .getPokemonCaught()
-    .subscribe(response => (this.pokemonCaught = response));
 
   // onPokemonNameType() {
   //   this.pokemonService.isEditingPokemon = this.pokemonName !== "";
@@ -148,7 +137,7 @@ isImageLoading: boolean | undefined;
   });
 }
 
-  fetchPokemons() {
+/*   fetchPokemons() {
     this.isFetching = true;
     setTimeout(() => {
       this.apiService.fetchPokemon()
@@ -161,7 +150,7 @@ isImageLoading: boolean | undefined;
           this.error = error.message;
         });
     }, 1000);
-  }
+  } */
 
   goToPokemonPage(index: number) {
     this.router.navigate(["/pokemon", index], {
@@ -184,7 +173,6 @@ isImageLoading: boolean | undefined;
     this.pokemonsSubscription?.unsubscribe();
   }
 
-  //firebase last try
 
   onSubmit() {
 
@@ -195,23 +183,6 @@ isImageLoading: boolean | undefined;
 
   }
 
-  getPokemonCaught = () =>
-      this.dataService
-      .getPokemonCaught()
-      .subscribe(res =>(this.pokemonCaught = res));
-
-//images
-
-// createImageFromBlob(image: any) {
-//   let reader = new FileReader();
-//   reader.addEventListener("load", () => {
-//      this.imageToShow = reader.result;
-//   }, false);
-
-//   if (image) {
-//      reader.readAsDataURL(image);
-//   }
-//  }
 
 //  getImageFromService(id: number) {
 //   this.isImageLoading = true;
@@ -237,5 +208,8 @@ fetchPokemonImage(id:number) {
 
 }
 
+onFavoriteToggle = () => {
+  console.log("favorete !");
+}
 
 };

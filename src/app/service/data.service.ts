@@ -3,9 +3,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Observable, Subject } from 'rxjs';
-import firebase from 'firebase';
-import { resolve } from '@angular/compiler-cli/src/ngtsc/file_system';
-import { AngularFirestore } from "@angular/fire/firestore";
 
 
 @Injectable({
@@ -35,69 +32,16 @@ export class DataService {
 
   constructor(
     private http:HttpClient,
-    public firestore: AngularFirestore,
   ) { }
 
   emitPokemons() {
     this.pokemonsSubjects.next(this.pokemons);
   }
 
-//save pkemon dans la database
 
-  savePokemons() {
-    firebase.database().ref('/pokemons').set(this.pokemons);
-  }
 
-//récuperer liste des pokemons de firebase
 
-  getPokemonFromFirebase() {
-    firebase.database().ref('/pokemons')
-  //Reagir modification database
-    .on('value', (data) => {
-      this.pokemons = data.val() ? data.val() : []; //si pas de valeur.
-      this.emitPokemons();
-    });
-}
 
-  getSinglePokemon(id: number) {
-  return new Promise
-  (
-    (resolve, reject) =>
-    {
-      firebase.database().ref('/pokemons/' + id).once('value').then
-      (
-        (data) =>
-        {
-          resolve(data.val());
-        }, (error) =>
-        {
-          reject(error);
-        }
-      );
-    }
-  );
-}
-
-//delete poke caughts ds list
-
-// removePokemon(pokemon: any) {
-//   const pokemonIndexToRemove = this.pokemons.findIndex(
-//     (pokemonl) => {
-//       if(pokemonDel === pokemon) {
-//         return true;
-//       }
-//     }
-//   );
-//   this.pokemons.splice(pokemonIndexToRemove, 1);
-//   this.savePokemons();
-//   this.emitPokemons();
-// }
-
-//Get Pokemons from API
-
-// getPokemon() {
-//   return this.http.get(`https://pokeapi.co/api/v2/pokemon?limit=151`);
-// }
 
 getPokemons(offset: number) {
  let url ='https://pokeapi.co/api/v2/pokemon?limit=151&offset=${offset}';
@@ -168,25 +112,8 @@ getImagePokemon(id: number){
     let url ='http://pokeapi.co/api/v2/generation/';
     return this.http.get(url);
   }
-//appel to firebase
 
 
 
-  createpokemonCaught(data) {
-    return new Promise<any>((resolve, reject) =>{
-      this.firestore
-          .collection("pokemonCaught")
-          .add(data)
-          .then(res => {}, err => reject(err));
-  });
-  }
-
-  getPokemonCaught() {
-    return this.firestore.collection("pokemonCaught").snapshotChanges();
-  }
-
-  getImage(imageUrl: string): Observable<Blob> {
-    return this.httpClient.get(imageUrl, { responseType: 'blob' });
-  }
 
 }

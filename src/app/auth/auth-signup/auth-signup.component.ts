@@ -34,17 +34,17 @@ export class AuthSignupComponent implements OnInit {
   }
 
   onSubmit() {
-    const email = this.signUpForm?.get('email')?.value;
-    const password = this.signUpForm?.get('password')?.value;
-    this.authService.createNewUser(email, password).then
-    (
-      () =>
-        {
-          this.router.navigate(['/pokemon-caught']);
-        },
-        (error) => {
-          this.errorMessage = error;
-        }
-    )
+    // const email = this.signUpForm?.get('email')?.value;
+    // const password = this.signUpForm?.get('password')?.value;
+    // this.authService.createNewUser(email, password).then
+    // (
+    //   () =>
+    //     {
+    //       this.router.navigate(['/pokemon-caught']);
+    //     },
+    //     (error) => {
+    //       this.errorMessage = error;
+    //     }
+    // )
   }
 }

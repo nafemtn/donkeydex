@@ -2,7 +2,6 @@
 import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { Observable } from "rxjs";
-import { map } from "rxjs/operators";
 import { Pokemon } from "./pokemon.service";
 
 @Injectable({
@@ -22,21 +21,5 @@ export class ApiService {
 
   deletePokemon(id: string) {
     return this.http.delete(`${this.apiUrl}/pokemons/${id}.json`);
-  }
-
-
-  fetchPokemon(): Observable<Pokemon[]> {
-    return this.http
-      .get<{ [key: string]: { name: string } }>(`${this.apiUrl}/pokemons.json`)
-      .pipe(
-        map((responseData) => {
-          return Object.entries(responseData).map(([id, apiPokemon]) => {
-            return <Pokemon><unknown>{
-              id,
-              name: apiPokemon.name,
-            };
-          });
-        })
-      );
   }
 }

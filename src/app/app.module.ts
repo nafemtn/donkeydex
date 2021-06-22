@@ -2,10 +2,6 @@ import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import  firebase from "firebase/app";
-import { AngularFireModule } from "@angular/fire";
-import { AngularFirestoreModule } from "@angular/fire/firestore";
-import { environment } from "../environments/environment";
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -29,10 +25,10 @@ import { StatsComponent } from './stats/stats.component';
 import { EvolutionComponent } from './evolution/evolution.component';
 import { NotFoundComponent } from './not-found/not-found.component';
 import { GenerationComponent } from './generation/generation.component';
-import { FirebaseService } from './service/firebase.service';
 import { PokemonService } from './service/pokemon.service';
 import { LoggingService } from './service/logging.service';
 import { NgxPaginationModule } from 'ngx-pagination';
+import { PokemonListItemComponent } from './pokemon-list-item/pokemon-list-item.component';
 
 const appRoutes: Routes = [
   {path: 'auth-signup', component: AuthSignupComponent },
@@ -63,6 +59,7 @@ const appRoutes: Routes = [
     EvolutionComponent,
     NotFoundComponent,
     GenerationComponent,
+    PokemonListItemComponent,
   ],
   imports: [
     BrowserModule,
@@ -72,15 +69,12 @@ const appRoutes: Routes = [
     FormsModule,
     ReactiveFormsModule,
     RouterModule.forRoot(appRoutes),
-    AngularFireModule.initializeApp(environment.firebaseConfig),
-    AngularFirestoreModule,
     NgxPaginationModule
 
   ],
   providers: [
     AuthService,
     DataService,
-    FirebaseService,
     PokemonService,
     LoggingService,
   ],

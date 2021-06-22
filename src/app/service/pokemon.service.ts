@@ -4,8 +4,8 @@ import { GenerationAPI } from '../modeles/generation-api';
 import { HttpClient } from '@angular/common/http';
 
 export interface Pokemon {
-
   id: number;
+  firebaseId?:  string;
   name: string;
   type: string[];
   types: any[];
@@ -13,6 +13,7 @@ export interface Pokemon {
     front_default: "",
     back_default: ""
   };
+
 }
 @Injectable({
   providedIn: "root",

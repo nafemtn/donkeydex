@@ -33,11 +33,12 @@
 <div  class="pokemon-grid ">
   <div class="box"  *ngFor="let pokemon of pokemons; let i = index;"
   [routerLink]="['/pokemon-item', pokemon.id] | paginate: { itemsPerPage: 10, currentPage: page, totalItems: totalPokemons }">
-
+  <app-pokemon-list-item [pokemon]="pokemon" ></app-pokemon-list-item>
     <li class="col">
-      <img [src]="imageToShow"
-     alt="Pokemon" >
+      <img src="https://pokeres.bastionbot.org/images/pokemon/{{pokemon.id}}.png"
+    alt="Pokemon" width="150px" >
     </li>
+
     <li class="col"> <h3> {{ pokemon.name}} </h3> </li>
     <li class="col"> <b>N°:</b> {{ pokemon.id }} </li>
     <li class="col"> <b>Type:</b> {{ pokemon.types[0].type.name }} {{ pokemon.types[1]?.type.name }} </li>
@@ -146,11 +147,6 @@ type="button"
     <span class="visually-hidden">Loading...</span>
   </div>
 
-
-<div class="alert alert-danger" *ngIf="error">
-  <h2>Une erreur est survenue ! Problème de connexion avec FireBase</h2>
-  <p>{{ error }}</p>
-</div> -->
 
 
 <!-- <div class="pokemon-grid" >

@@ -34,18 +34,18 @@ export class AuthSiginComponent implements OnInit {
     }
 
     onSubmit() {
-      const email = this.signInForm?.get('email')?.value;
-      const password = this.signInForm?.get('password')?.value;
-      this.authService.signInUser(email, password).then
-      (
-        () =>
-          {
-            this.router.navigate(['/pokemon-caught']);
-          },
-          (error) => {
-            this.errorMessage = error;
-          }
-      )
+      // const email = this.signInForm?.get('email')?.value;
+      // const password = this.signInForm?.get('password')?.value;
+      // this.authService.signInUser(email, password).then
+      // (
+      //   () =>
+      //     {
+      //       this.router.navigate(['/pokemon-caught']);
+      //     },
+      //     (error) => {
+      //       this.errorMessage = error;
+      //     }
+      // )
     }
   }
 

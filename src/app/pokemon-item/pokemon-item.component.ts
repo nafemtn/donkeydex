@@ -151,5 +151,7 @@ fetchPokemonsDetails(pokemonId: number) {
 //       });
 //   }, 1000);
 // }
+
+
 }
 

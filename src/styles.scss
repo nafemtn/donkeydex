@@ -2,6 +2,8 @@
 
 /* Importing Bootstrap SCSS file. */
 @import '~bootstrap/scss/bootstrap';
+@import "~bootstrap-icons/font/bootstrap-icons.css";
+
 $primary:red;
 $second: #ffcb05;
 
@@ -37,7 +39,7 @@ body {
   margin: 0 auto;
   display: grid;
   width: 300px;
-  height: 300px;
+  height: 500px;
   box-shadow: 1px 2px 5px rgba(0, 0, 0, 0.3);
   text-align: center;
   background-color: wheat;
@@ -138,5 +140,13 @@ pagination-controls {
 .itemFooter {
   margin-top: 300px;
   margin-left: 70%;
+}
+
+.bi {
+  cursor: pointer;
+
+  &:hover {
+    color: red
+  }
 }
 
