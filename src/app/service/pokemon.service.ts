@@ -13,7 +13,6 @@ export interface Pokemon {
     front_default: "",
     back_default: ""
   };
-
 }
 @Injectable({
   providedIn: "root",
@@ -61,4 +60,5 @@ export class PokemonService {
     return this.pokemons.filter(pokemon =>
       pokemon.name.match(regex));
   }
+
 }

@@ -23,8 +23,7 @@ export class PokemonListComponent implements OnInit, OnDestroy {
   @Output() evevementClicPokemon = new EventEmitter;
 
   // apiPokemons: Pokemon[] = [];
-  // apiUrl =
-  //   "https://donkeydex-28eeb-default-rtdb.europe-west1.firebasedatabase.app/";
+  apiUrlImage = "https://pokeres.bastionbot.org/images/pokemon/${pokemon.id}.png";
   error: string | undefined;
 
   pokemonsSubscription: Subscription | undefined;
@@ -41,10 +40,16 @@ export class PokemonListComponent implements OnInit, OnDestroy {
   pokemons: Pokemon[] = [];
   isFetching = false;
 
+//filter by type
   type = '';
-  pokemonsType = [{type:"All"}, {type:"grass"},  {type:"fire"},  {type:"water"},  {type:"electric"}];
+  pokemonsType = [{type:"All"}, {type:"grass"},  {type:"fire"},  {type:"water"},  {type:"electric"}, {type:"poison"},  {type:"flying"}, {type:"ground"}, {type:"bug"}, {type:"fairy"}, {type:"fighting"}, {type:"psychic"}, ];
   selectedType: any = this.pokemonsType[0];
-
+//
+// Get Images
+imgUrl: string ='https://pokeres.bastionbot.org/images/pokemon/${pokemon.id}.png';
+imageToShow: any[] = [];
+isImageLoading: boolean | undefined;
+//
   http: any;
   apiPokemons: any[] | undefined;
   pokemonId!: string;
@@ -68,17 +73,16 @@ export class PokemonListComponent implements OnInit, OnDestroy {
 
     this.dataService.getPokemon()
       .subscribe(
-        (response: any) => {
-          this.pokemon = response
+        (pokemonResponse: any) => {
+          this.pokemon = pokemonResponse
 
-        response.results.forEach((result: { name: string; }) => {
-          this.dataService.getMoreData(result.name)
-            .subscribe((uniqueResponse: any) => {
-
+          pokemonResponse.results.forEach((pokemons: any) => {
+          this.dataService.getMoreData(pokemons.name)
+            .subscribe((pokemonDetail: any) => {
               // des que je récupère un pokemon je l'add a mon dataservice
-              this.dataService.addPokemon(uniqueResponse)
-
-          });
+              this.dataService.addPokemon(pokemonDetail)
+                });
+          this.dataService.getImagePokemon(pokemons.id)
       });
       });
 //
@@ -159,24 +163,11 @@ export class PokemonListComponent implements OnInit, OnDestroy {
     }, 1000);
   }
 
-  // fetchPokemons() {
-  //   this.http.get("https://pokeapi.co/api/v2/pokemon?limit=151").subscribe((result: any) => {
-  //     const pokemon = result.results[0];
-
-  //     this.http.get(`https://pokeapi.co/api/v2/pokemon/pokemon/${pokemon}`).subscribe((result) => {
-  //       console.log(result);
-  //     })
-  //   })
-  // }
-
-
   goToPokemonPage(index: number) {
     this.router.navigate(["/pokemon", index], {
       queryParams: { allowEdit: 1 },
       fragment: 'test' });
   }
-
-  //
 
       // add caught pokemon list
 
@@ -202,18 +193,49 @@ export class PokemonListComponent implements OnInit, OnDestroy {
     this.dataService.form.value.coffeeOrder = this.dataService;
       let data = this.dataService.form.value;
 
-     this.dataService.createpokemonCaught(data)
-         .then(res => {
-             /*dunno*/
-         });
   }
 
-
   getPokemonCaught = () =>
-     this.dataService
-     .getPokemonCaught()
-     .subscribe(res =>(this.pokemonCaught = res));
+      this.dataService
+      .getPokemonCaught()
+      .subscribe(res =>(this.pokemonCaught = res));
 
+//images
+
+// createImageFromBlob(image: any) {
+//   let reader = new FileReader();
+//   reader.addEventListener("load", () => {
+//      this.imageToShow = reader.result;
+//   }, false);
+
+//   if (image) {
+//      reader.readAsDataURL(image);
+//   }
+//  }
+
+//  getImageFromService(id: number) {
+//   this.isImageLoading = true;
+//   this.dataService.getImage(this.imgUrl).subscribe(data => {
+//     this.createImageFromBlob(data);
+//     this.isImageLoading = false;
+//   }, error => {
+//     this.isImageLoading = false;
+//     console.log(error);
+//   });
+// }
+
+// getImage(id: number): Observable<Pokemon> {
+//   return this.httpClient.get('http://myip/image/'+id, {responseType: "blob"});
+// }
+
+fetchPokemonImage(id:number) {
+  // this.http.get(`https://pokeres.bastionbot.org/images/pokemon/${id}.png`).subscribe((result: any) => {
+  //   const pokemon = result.results[0];
+    this.http.get(`https://pokeapi.co/api/v2/pokemon/pokemon/${id}`).subscribe((result) => {
+      console.log(result);
+    })
+
+}
 
 
 };

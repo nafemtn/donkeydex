@@ -34,7 +34,10 @@
   <div class="box"  *ngFor="let pokemon of pokemons; let i = index;"
   [routerLink]="['/pokemon-item', pokemon.id] | paginate: { itemsPerPage: 10, currentPage: page, totalItems: totalPokemons }">
 
-    <li class="col"> <img [src]="pokemon.sprites.front_default" alt="Pokemon" > </li>
+    <li class="col">
+      <img [src]="imageToShow"
+     alt="Pokemon" >
+    </li>
     <li class="col"> <h3> {{ pokemon.name}} </h3> </li>
     <li class="col"> <b>N°:</b> {{ pokemon.id }} </li>
     <li class="col"> <b>Type:</b> {{ pokemon.types[0].type.name }} {{ pokemon.types[1]?.type.name }} </li>
@@ -47,7 +50,16 @@
 
 </div>
 
+<!-- <div class="card bg-wheat text-black"
+*ngFor="let pokemon of pokemons; let i = index; ">
+  <img [src]="pokemon.sprites.front_default" class="card-img" alt="pokemon">
+  <div class="card-img-overlay">
+    <h5 class="card-title">{{ pokemon.name}}</h5>
+    <li class="card-text"> <b>N°:</b> {{ pokemon.id }} </li>
+    <li class="card-text"> <b>Type:</b> {{ pokemon.types[0].type.name }} {{ pokemon.types[1]?.type.name }} </li>
 
+  </div>
+</div> -->
 
 
     <!-- <li> <a> (click)="clicPokemon(id)"> Voir le détail de {{pokemon.name}} </a> </li> -->

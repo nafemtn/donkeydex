@@ -2,7 +2,7 @@
 
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
-import { Subject } from 'rxjs';
+import { Observable, Subject } from 'rxjs';
 import firebase from 'firebase';
 import { resolve } from '@angular/compiler-cli/src/ngtsc/file_system';
 import { AngularFirestore } from "@angular/fire/firestore";
@@ -11,8 +11,17 @@ import { AngularFirestore } from "@angular/fire/firestore";
 @Injectable({
   providedIn: 'root'
 })
+
+// export interface PokemonResult {
+//   name:string;
+//   url:string;
+// }
 export class DataService {
 
+  count: number | undefined;
+  next: string | undefined;
+  previous: string | undefined;
+  // results: PokemonResult[] | undefined;
 
   url = 'https://pokeapi.co/api/v2/pokemon?limit=151';
   urlApi = 'https://pokeapi.co/api/v2/pokemon/${id}/';
@@ -22,16 +31,12 @@ export class DataService {
 //emettre l'array
   pokemonsSubjects = new Subject<any[]>();
   form: any;
+  httpClient: any;
 
   constructor(
     private http:HttpClient,
     public firestore: AngularFirestore,
-  ) {}
-
-//getdetail du pokemon
-getPokemonDetail() {
-
-}
+  ) { }
 
   emitPokemons() {
     this.pokemonsSubjects.next(this.pokemons);
@@ -100,6 +105,7 @@ getPokemons(offset: number) {
 }
 
 
+
 getPokemonsDetail(id: number) {
   let url =`https://pokeapi.co/api/v2/pokemon/${id}`;
   return this.http.get<DataService>(this.urlApi)
@@ -116,6 +122,12 @@ getMoreData(name: string) {
 return this.http.get(`https://pokeapi.co/api/v2/pokemon/${name}`);
 
   }
+
+//Get POkemon Images
+
+getImagePokemon(id: number){
+  return this.http.get(`https://pokeres.bastionbot.org/images/pokemon/${id}.png`);
+}
 
 //appel une api poke detail
 
@@ -171,6 +183,10 @@ return this.http.get(`https://pokeapi.co/api/v2/pokemon/${name}`);
 
   getPokemonCaught() {
     return this.firestore.collection("pokemonCaught").snapshotChanges();
+  }
+
+  getImage(imageUrl: string): Observable<Blob> {
+    return this.httpClient.get(imageUrl, { responseType: 'blob' });
   }
 
 }

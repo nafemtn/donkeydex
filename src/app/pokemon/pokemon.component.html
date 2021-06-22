@@ -3,7 +3,7 @@
 <button
   *ngIf="pokemon"
   class="btn btn-primary m-3"
-  [routerLink]="['/pokemon', +pokemon.id + 1]"
+  [routerLink]="['/pokemon', + pokemon.id + 1]"
   [queryParams]="{allowEdit: 1, allowTest: 0}"
   fragment="test"
 >
