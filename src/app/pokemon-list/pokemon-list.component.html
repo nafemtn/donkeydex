@@ -28,159 +28,44 @@
 </form>
 
 
-  <p *ngIf="pokemons.length === 0 && !isFetching">Aucun pokémon de l'api</p>
-
-<div  class="pokemon-grid ">
-  <div class="box"  *ngFor="let pokemon of pokemons; let i = index;"
-  [routerLink]="['/pokemon-item', pokemon.id] | paginate: { itemsPerPage: 10, currentPage: page, totalItems: totalPokemons }">
-  <app-pokemon-list-item [pokemon]="pokemon" ></app-pokemon-list-item>
-    <li class="col">
-      <img src="https://pokeres.bastionbot.org/images/pokemon/{{pokemon.id}}.png"
-    alt="Pokemon" width="150px" >
-    </li>
-
-    <li class="col"> <h3> {{ pokemon.name}} </h3> </li>
-    <li class="col"> <b>N°:</b> {{ pokemon.id }} </li>
-    <li class="col"> <b>Type:</b> {{ pokemon.types[0].type.name }} {{ pokemon.types[1]?.type.name }} </li>
-
-    <div>
-      <img  width="60px" [src]=ball routerLink="/pokemon-caught">
-    </div>
-
-  </div>
-
-</div>
-
-<!-- <div class="card bg-wheat text-black"
-*ngFor="let pokemon of pokemons; let i = index; ">
-  <img [src]="pokemon.sprites.front_default" class="card-img" alt="pokemon">
-  <div class="card-img-overlay">
-    <h5 class="card-title">{{ pokemon.name}}</h5>
-    <li class="card-text"> <b>N°:</b> {{ pokemon.id }} </li>
-    <li class="card-text"> <b>Type:</b> {{ pokemon.types[0].type.name }} {{ pokemon.types[1]?.type.name }} </li>
-
-  </div>
-</div> -->
+  <!-- <p *ngIf="pokemons.length === 0 && !isFetching">Aucun pokémon de l'api</p> -->
 
 
-    <!-- <li> <a> (click)="clicPokemon(id)"> Voir le détail de {{pokemon.name}} </a> </li> -->
+  <!-- < class="box"  *ngFor="let pokemon of pokemons; let i = index;" -->
+  <!-- [routerLink]="['/pokemon-item', pokemon.id]">
+  <app-pokemon-list-item [pokemon]="pokemon" ></app-pokemon-list-item> -->
 
-    <!-- <button *ngFor="let pokemon of pokemons"
-    (click)="addPokemonCaught(pokemon)">
-    {{pokemon}}
-    </button>
-    <button (click)="onSubmit()">
-      Caught!!
-    </button>
-    <p *ngIf=pokemonSelectionne> {{pokemonSelectionne}} </p> -->
+  <ul
+  class="box"
+  *ngFor="let pokemon of pokemons; let i = index;"
+  infiniteScroll
+  [infiniteScrollDistance]="2"
+  [infiniteScrollThrottle]="50"
+  (scrolled)="onScroll($event)">
 
+      <li
+      class="col">
+        <img src="https://pokeres.bastionbot.org/images/pokemon/{{pokemon.id}}.png"
+      alt="Pokemon" width="150px" >
+      </li>
 
-<!-- <div class="p-3">
-  <div class="input-group mb-3">
-    <input
-      type="text"
-      class="form-control"
-      placeholder="Enter a pokemon name"
-      (input)="onPokemonNameType()"
-      [(ngModel)]="pokemonName"
-      #nameInput
-    /> -->
-    <!-- <button
-      class="btn btn-primary"
-      (click)="onAddPokemon(nameInput)"
-      type="button"
-    >
-      Add Pokemon
-    </button>
-  </div> -->
+      <li class="col"> <h3> {{ pokemon.name}} </h3> </li>
+      <li class="col"> <b>N°:</b> {{ pokemon.id }} </li>
+      <li class="col"> <b>Type:</b> {{ pokemon.types[0].type.name }} {{ pokemon.types[1]?.type.name }} </li>
 
+      <div>
+        <img  width="60px" [src]=ball routerLink="/pokemon-caught">
+      </div>
 
-  <!-- <div *ngIf="pokemonAdded">
-    Pokemon was created ! Pokemon name is: {{ pokemonName }}
-  </div> -->
-
-<!-- </div> -->
-
-  <!-- <app-pokemon-item
-  (click)="goToPokemonPage(i)"
-  appHighlight="wheat"
-  defaultColor="gray"
-  *ngFor="let pokemon of pokemons; let i = index"
-  [pokemon]="pokemon"
-  > -->
-
-
-<!-- <button
-class="btn btn-primary mt-4"
-(click)="fetchPokemons()"
-type="button"
->Récupérer les pokémons
-</button> -->
-
-
-    <!-- (click)="goToPokemonPage(i)"
-    *ngFor="let pokemon of pokemons; let i = index"
-    [pokemon]="pokemon"
-  > -->
-
-    <!-- <img [src]="pokemon.sprites.front_default" alt="Pokemon">
-
-
-    <h3> {{ pokemon.name}} </h3>
-
-    <p>
-      <b>N°:</b> {{ pokemon.id }}
-    </p>
-
-    <p>
-      <b>Type:</b> {{ pokemon.types[0].type.name }}  {{ pokemon.types[1]?.type.name }}
-    </p> -->
+  </ul>
 
 
 
 
-
-
-<!-- message error -->
-
-  <!-- <div *ngIf="isFetching" class="spinner-border text-primary" role="status">
-    <span class="visually-hidden">Loading...</span>
-  </div>
+<!-- infinite scrool  -->
 
 
 
-<!-- <div class="pokemon-grid" >
-
-  <button (click)="goToPokemonDetails(id)">Go </button>
-</div> -->
-
-
-
-
-
-<!-- <div class="box"
- *ngFor="let pokemon of pokemons" [id]="pokemon.id">
-
-  <div style="margin-top: 1rem;"> -->
-
-
-<!--
-  </div> -->
-
- <!-- <button
-  (click)="onViewPokemon(i)"> View Pokemon
- </button> -->
-
-
-
-
- <!-- </div> -->
-<!--
-  <span class="ml-3"> {{pokemonAddListCaught}} </span>
- -->
-
-
-
- <pagination-controls></pagination-controls>
+ <!-- <pagination-controls></pagination-controls> -->
 
 

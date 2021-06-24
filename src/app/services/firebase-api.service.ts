@@ -24,4 +24,7 @@ apiUrl = "https://donkeydex-28eeb-default-rtdb.europe-west1.firebasedatabase.app
     return this.http.delete(`$this.apiUrl}/pokemons/$
     (id).json`);
   }
+
+
+
 }

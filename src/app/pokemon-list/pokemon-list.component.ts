@@ -21,8 +21,8 @@ export class PokemonListComponent implements OnInit, OnDestroy {
   @Output() evevementClicPokemon = new EventEmitter;
 
   // apiPokemons: Pokemon[] = [];
-  apiUrlImage = "https://pokeres.bastionbot.org/images/pokemon/${pokemon.id}.png";
-  error: string | undefined;
+  // apiUrlImage = "https://pokeres.bastionbot.org/images/pokemon/${pokemon.id}.png";
+  // error: string | undefined;
 
   pokemonsSubscription: Subscription | undefined;
   pokemonSelectionne;
@@ -36,6 +36,7 @@ export class PokemonListComponent implements OnInit, OnDestroy {
   public searchFilter: any = '';
   id!: number |  any;
   pokemons: Pokemon[] = [];
+  pokemonss: any[] = [];
   isFetching = false;
 
 //filter by type
@@ -44,9 +45,9 @@ export class PokemonListComponent implements OnInit, OnDestroy {
   selectedType: any = this.pokemonsType[0];
 //
 // Get Images
-imgUrl: string ='https://pokeres.bastionbot.org/images/pokemon/${pokemon.id}.png';
-imageToShow: any[] = [];
-isImageLoading: boolean | undefined;
+// imgUrl: string ='https://pokeres.bastionbot.org/images/pokemon/${pokemon.id}.png';
+// imageToShow: any[] = [];
+// isImageLoading: boolean | undefined;
 //
   http: any;
   apiPokemons: any[] | undefined;
@@ -54,6 +55,10 @@ isImageLoading: boolean | undefined;
   pokemonType!: string;
   pokemonName: any;
   firestore: any;
+
+  scrollDistance = 1;
+  scrollUpDistance = 2;
+  isfetchingScroll = false;
 
   constructor(
     private dataService: DataService,
@@ -63,6 +68,11 @@ isImageLoading: boolean | undefined;
   ) { }
 
   ngOnInit(): void {
+
+    // for (let i=1; i<=20; i++){
+    //   this.pokemonss.push(i)
+    // }
+    console.log(this.pokemons)
 
     this.pokemons = []
 //
@@ -78,7 +88,7 @@ isImageLoading: boolean | undefined;
               // des que je récupère un pokemon je l'add a mon dataservice
               this.dataService.addPokemon(pokemonDetail)
                 });
-          this.dataService.getImagePokemon(pokemons.id)
+
       });
       });
 //
@@ -97,12 +107,6 @@ isImageLoading: boolean | undefined;
 
 
   };
-
-
-  // onPokemonNameType() {
-  //   this.pokemonService.isEditingPokemon = this.pokemonName !== "";
-  //   console.log(this.pokemonName);
-  // }
 
   searchPokemon(form) {
     console.log(form.value)
@@ -209,7 +213,45 @@ fetchPokemonImage(id:number) {
 }
 
 onFavoriteToggle = () => {
-  console.log("favorete !");
+  console.log("favorite !");
 }
+
+// onScroll() {
+//   const length = this.pokemons.length;
+//   // setTimeout(()=> {
+//   //   const p:any = ' '.repeat(20).split('').map((s, i)=> i + 1 + length);
+//   //   while(p.length) this.pokemons.push(p.shift());
+//   // }, 1000)
+//   console.log("toto");
+// }
+
+onScroll= ($event) => {
+  console.log('scroll');
+  if (this.isfetchingScroll) return;
+
+  // this.dataService.getPokemons().subscribe(pokemons) => {
+  //   this.pokemons = [...this.pokemons, ...pokemons];
+  //   console.log(this.pokemons)
+
+  // this.dataService.getPokemon()
+  //     .subscribe(
+  //       (pokemonResponse: any) => {
+  //         this.pokemon = pokemonResponse
+  //         this.isfetchingScroll = true;
+
+  //         pokemonResponse.results.forEach((pokemons: any) => {
+  //         this.dataService.getMoreData(pokemons.name)
+  //           .subscribe((pokemonDetail: any) => {
+  //             // des que je récupère un pokemon je l'add a mon dataservice
+  //             this.dataService.addPokemon(pokemonDetail)
+  //               });
+  //           this.isfetchingScroll = false;
+
+  //     });
+  //     });
+
+  }
+
+
 
 };

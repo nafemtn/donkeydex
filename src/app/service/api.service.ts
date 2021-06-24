@@ -22,4 +22,7 @@ export class ApiService {
   deletePokemon(id: string) {
     return this.http.delete(`${this.apiUrl}/pokemons/${id}.json`);
   }
+
+
+
 }

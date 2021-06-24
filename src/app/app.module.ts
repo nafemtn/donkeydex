@@ -29,6 +29,7 @@ import { PokemonService } from './service/pokemon.service';
 import { LoggingService } from './service/logging.service';
 import { NgxPaginationModule } from 'ngx-pagination';
 import { PokemonListItemComponent } from './pokemon-list-item/pokemon-list-item.component';
+import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 
 const appRoutes: Routes = [
   {path: 'auth-signup', component: AuthSignupComponent },
@@ -69,7 +70,8 @@ const appRoutes: Routes = [
     FormsModule,
     ReactiveFormsModule,
     RouterModule.forRoot(appRoutes),
-    NgxPaginationModule
+    NgxPaginationModule,
+    InfiniteScrollModule
 
   ],
   providers: [
