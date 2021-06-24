@@ -30,6 +30,7 @@ import { LoggingService } from './service/logging.service';
 import { NgxPaginationModule } from 'ngx-pagination';
 import { PokemonListItemComponent } from './pokemon-list-item/pokemon-list-item.component';
 import { InfiniteScrollModule } from 'ngx-infinite-scroll';
+import { UserCreationComponent } from './pages/user-creation/user-creation.component';
 
 const appRoutes: Routes = [
   {path: 'auth-signup', component: AuthSignupComponent },
@@ -40,6 +41,7 @@ const appRoutes: Routes = [
   {path: 'pokemon-list/:id', canActivate: [AuthGuardService], component: PokemonItemComponent },
   {path: '', redirectTo: 'pokemon-list', pathMatch: 'full'},
   {path: '**', redirectTo: 'pokemon-list'},
+  {path: 'user-creation', component: UserCreationComponent },
 ];
 
 @NgModule({
@@ -61,6 +63,7 @@ const appRoutes: Routes = [
     NotFoundComponent,
     GenerationComponent,
     PokemonListItemComponent,
+    UserCreationComponent,
   ],
   imports: [
     BrowserModule,
@@ -72,7 +75,6 @@ const appRoutes: Routes = [
     RouterModule.forRoot(appRoutes),
     NgxPaginationModule,
     InfiniteScrollModule
-
   ],
   providers: [
     AuthService,

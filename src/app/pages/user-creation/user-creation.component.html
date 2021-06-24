@@ -1,0 +1,89 @@
+<div class="container">
+  <div class="p3">
+
+    <form
+    (ngSubmit)="onSubmit()"
+    #userForm="ngForm">
+
+      <div class="form-group">
+        <label for="usernameInput">Username</label>
+        <input
+          ngModel
+          [ngClass]="{ 'is-invalid': userName.invalid && userName.touched }"
+          id="usernameInput"
+          class="form-control"
+          type="text"
+          name="userName"
+          required
+          #userName="ngModel"
+        />
+          <div
+          class="invalid-feedback">Please choose your user
+          </div>
+      </div>
+
+      <div class="form-group">
+        <label for="password">Password</label>
+
+    <div class="input-group">
+          <input
+            ngModel
+            [ngClass]="{ 'is-invalid': password.invalid && password.touched }"
+            id="password"
+            class="form-control"
+            [type]="showPassword ? 'text' : 'password'"
+            name="password"
+            required
+            pattern="^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$"
+            #password="ngModel"/>
+
+          <div class="invalid-feedback"
+          *ngIf="password.errors?.required" >Please enter your password
+          </div>
+          <div class="invalid-feedback"
+        *ngIf="password.errors?.pattern">Please provides a password
+
+        </div>
+          <button
+          class="btn btn-outline-secondary"
+          type="button"
+          (click)="showPassword = !showPassword">
+            <span *ngIf="showPassword">Hide Password</span>
+            <span *ngIf="!showPassword">Show Password</span>
+        </button>
+        </div>
+    </div>
+
+      <div class="form-group">
+        <label for="emailInput">Email</label>
+        <input
+          ngModel
+          [ngClass]="{ 'is-invalid': email.invalid && email.touched }"
+          id="emailInput"
+          class="form-control"
+          type="email"
+          name="email"
+          required
+          email
+          #email="ngModel"
+        />
+        <div class="invalid-feedback"
+         *ngIf="email.errors?.required" >Please enter your email
+        </div>
+        <div class="invalid-feedback"
+        *ngIf="email.errors?.email">Please provides a valid email
+      </div>
+      </div>
+
+      <button
+        [disabled]="!userForm.valid"
+        class="btn btn-primary"
+        type="submit"
+      >
+        Submit
+      </button>
+
+    </form>
+
+  </div>
+</div>

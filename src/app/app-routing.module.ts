@@ -11,6 +11,7 @@ import { EvolutionComponent } from './evolution/evolution.component';
 import { NotFoundComponent } from './not-found/not-found.component';
 import { AuthService } from './service-auth/auth.service';
 import { AuthGuardService } from './service-auth/auth-guard.service';
+import { UserCreationComponent } from './pages/user-creation/user-creation.component';
 
 const routes: Routes =
 [
@@ -20,6 +21,7 @@ const routes: Routes =
   { path: 'pokemon-list', component: PokemonListComponent },
   { path: 'pokemon-item/:id', component: PokemonItemComponent },
   { path: "", component: HomeComponent },
+  {path: 'user-creation', component: UserCreationComponent },
   // { path: "pokemon", component: PokemonComponent},
   {
     canActivate: [AuthGuardService],
